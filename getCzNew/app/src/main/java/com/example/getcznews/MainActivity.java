@@ -3,14 +3,10 @@ package com.example.getcznews;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.annotation.Nullable;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
+import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.getcznews.controler.Login;
 import com.example.getcznews.screens.TelaLogin;
@@ -36,11 +32,23 @@ public class MainActivity extends Activity {
         root.setOrientation(LinearLayout.VERTICAL);
         setContentView(root);
 
-        if (!Login.getInstance().isLogado())
-                startActivity(
-                        new Intent(this, TelaLogin.class)
-                );
+        //VERIFICAR O LOGIN
+        verificarLogin();
+
+
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        verificarLogin();
+    }
+
+    private void verificarLogin(){
+        if (!Login.getInstance().isLogado())
+            startActivity(
+                    new Intent(this, TelaLogin.class)
+            );
+    }
 }

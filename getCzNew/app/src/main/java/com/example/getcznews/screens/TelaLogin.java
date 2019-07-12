@@ -1,15 +1,18 @@
 package com.example.getcznews.screens;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.getcznews.TextEdit;
+import com.example.getcznews.controler.Login;
 
 public class TelaLogin extends Activity {
 
@@ -18,7 +21,7 @@ public class TelaLogin extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        LinearLayout root = new LinearLayout(this);
+        final LinearLayout root = new LinearLayout(this);
         root.setLayoutParams(
                 new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -57,6 +60,8 @@ public class TelaLogin extends Activity {
                 "Senha"
         );
 
+
+        //LAYOUT DOS BOTÕES
         LinearLayout llBotoes = new LinearLayout(root.getContext());
         llBotoes.setLayoutParams(
                 new LinearLayout.LayoutParams(
@@ -66,24 +71,31 @@ public class TelaLogin extends Activity {
         );
         root.addView(llBotoes);
 
-
-
         //BOTÃO LOGAR
         Button btLogar = new Button(llBotoes.getContext());
         btLogar.setText("Logar");
         llBotoes.addView(btLogar);
 
+        btLogar.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                       onLogar();
+                    }
+                }
+        );
+
+
         //BOTÃO CADASTRAR
         Button btCadastro = new Button(llBotoes.getContext());
         btCadastro.setText("Cadastrar");
         llBotoes.addView(btCadastro);
+    }
 
 
-
-
-
-
-
-
+    private void onLogar(){
+        Login.getInstance().logar("eu","123");
+        startActivity(
+                new Intent(this,TelaPrincipal.class));
     }
 }
