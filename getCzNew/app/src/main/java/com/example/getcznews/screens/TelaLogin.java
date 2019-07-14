@@ -1,8 +1,10 @@
 package com.example.getcznews.screens;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.method.PasswordTransformationMethod;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -62,6 +64,7 @@ public class TelaLogin extends TelaModeloInativo {
                 root,
                 "Senha"
         );
+        teSenha.getEt().setTransformationMethod(new PasswordTransformationMethod());
 
 
         //LAYOUT DOS BOTÕES
@@ -93,10 +96,22 @@ public class TelaLogin extends TelaModeloInativo {
         Button btCadastro = new Button(llBotoes.getContext());
         btCadastro.setText("Cadastrar");
         llBotoes.addView(btCadastro);
+
+        btCadastro.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        cadastro();
+                    }
+                }
+        );
     }
 
     private void onLogar(){
         Login.getInstance().logar("eu","123");
         redirecionar();
+    }
+    private void cadastro(){
+        startActivity(new Intent(TelaLogin.this,TelaCadastro.class));
     }
 }
