@@ -20,6 +20,7 @@
         <activity android:name=".screens.TelaModeloInativo"/>
         <activity android:name=".screens.TelaLogin" />
         <activity android:name=".screens.TelaPrincipal"/>
+        <activity android:name=".screens.TelaCadastro"/>
     </application>
 
 </manifest>
