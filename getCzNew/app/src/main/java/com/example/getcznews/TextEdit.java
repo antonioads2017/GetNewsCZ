@@ -2,6 +2,7 @@ package com.example.getcznews;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,4 +45,11 @@ public class TextEdit extends LinearLayout {
         return et.getText().toString();
     }
 
+    public EditText getEt() {
+        return et;
+    }
+
+    public void setEt(EditText et) {
+        this.et = et;
+    }
 }
