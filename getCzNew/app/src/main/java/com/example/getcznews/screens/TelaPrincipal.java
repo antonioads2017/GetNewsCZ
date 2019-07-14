@@ -4,13 +4,20 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.getcznews.ListNews;
+import com.example.getcznews.R;
 import com.example.getcznews.TextEdit;
 
-public class TelaPrincipal extends TelaModeloAtivo {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+public class TelaPrincipal extends TelaModeloAtivo {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,9 +32,16 @@ public class TelaPrincipal extends TelaModeloAtivo {
 
         ListView lvNoticias = new ListView(getRoot().getContext());
 
-        String[] dados = {"Notícia 1", "Notícia 2", "Notícia 3", "Notícia 4", "Notícia 5"};
+        List<ListNews> listNews = new ArrayList<>();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,dados);
+        for (int x = 0; x < 30; ++x){;
+            ListNews ln = new ListNews(lvNoticias.getContext());
+            ln.getTvTitulo().setText("Noticia " + String.valueOf(x +1));
+            listNews.add(ln);
+        }
+
+
+        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,listNews);
         lvNoticias.setAdapter(adapter);
 
         getRoot().addView(lvNoticias);
