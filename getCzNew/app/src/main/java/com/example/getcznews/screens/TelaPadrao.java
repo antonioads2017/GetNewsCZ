@@ -1,27 +1,32 @@
-package com.example.getcznews;
+package com.example.getcznews.screens;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.widget.LinearLayout;
 
 import com.example.getcznews.controler.Login;
-import com.example.getcznews.screens.TelaLogin;
-import com.example.getcznews.screens.TelaPrincipal;
 
-public class MainActivity extends Activity {
+public abstract class TelaPadrao  extends Activity {
+
+    protected boolean soLogado;
+    private LinearLayout root;
+
+    protected abstract void redirecionar();
+
+    public TelaPadrao(boolean soLogado) {
+        this.soLogado = soLogado;
+        root = null;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
+        verificarLogin();
 
-        Log.d("AGDEBUG", "cade tu?");
+        root = new LinearLayout(this);
 
-        LinearLayout root = new LinearLayout(this);
         root.setLayoutParams(
                 new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -29,20 +34,14 @@ public class MainActivity extends Activity {
                 )
         );
 
-        root.setBackgroundColor(Color.RED);
+        root.setBackgroundColor(Color.GRAY);
         root.setOrientation(LinearLayout.VERTICAL);
         setContentView(root);
-
-        //VERIFICAR O LOGIN
-        verificarLogin();
-
-
-
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onRestart() {
+        super.onRestart();
         verificarLogin();
     }
 
@@ -53,12 +52,21 @@ public class MainActivity extends Activity {
     }
 
     private void verificarLogin(){
-        if (!Login.getInstance().isLogado())
-            startActivity(
-                    new Intent(this, TelaLogin.class)
-            );
-        startActivity(
-                new Intent(this, TelaPrincipal.class)
-        );
+        boolean logado = Login.getInstance().isLogado();
+
+
+        if (soLogado && !logado)
+            redirecionar();
+
+        if(!soLogado && logado)
+            redirecionar();
+    }
+
+    public LinearLayout getRoot() {
+        return root;
+    }
+
+    public void setRoot(LinearLayout root) {
+        this.root = root;
     }
 }

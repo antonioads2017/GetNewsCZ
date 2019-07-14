@@ -15,14 +15,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".screens.TelaLogin" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".screens.TelaPrincipal"/>
+        <activity android:name=".screens.TelaPadrao"/>
         <activity android:name=".screens.TelaModeloAtivo"/>
+        <activity android:name=".screens.TelaModeloInativo"/>
+        <activity android:name=".screens.TelaLogin" />
+        <activity android:name=".screens.TelaPrincipal"/>
     </application>
 
 </manifest>

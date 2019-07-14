@@ -1,7 +1,5 @@
 package com.example.getcznews.screens;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,12 +12,17 @@ import android.widget.TextView;
 import com.example.getcznews.TextEdit;
 import com.example.getcznews.controler.Login;
 
-public class TelaLogin extends Activity {
+public class TelaLogin extends TelaModeloInativo {
 
+    public TelaLogin() {
+
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        soLogado = false;
 
         final LinearLayout root = new LinearLayout(this);
         root.setLayoutParams(
@@ -92,10 +95,8 @@ public class TelaLogin extends Activity {
         llBotoes.addView(btCadastro);
     }
 
-
     private void onLogar(){
         Login.getInstance().logar("eu","123");
-        startActivity(
-                new Intent(this,TelaPrincipal.class));
+        redirecionar();
     }
 }
