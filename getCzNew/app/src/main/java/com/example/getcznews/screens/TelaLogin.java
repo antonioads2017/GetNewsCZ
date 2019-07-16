@@ -34,7 +34,8 @@ public class TelaLogin extends TelaModeloInativo {
                 )
         );
 
-        root.setBackgroundColor(Color.GRAY);
+        root.setGravity(Gravity.CENTER_HORIZONTAL);
+        root.setBackgroundColor(Color.WHITE);
         root.setOrientation(LinearLayout.VERTICAL);
         setContentView(root);
 

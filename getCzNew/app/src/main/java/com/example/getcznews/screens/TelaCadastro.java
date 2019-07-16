@@ -31,6 +31,7 @@ public class TelaCadastro extends TelaModeloInativo {
                 )
         );
 
+        root.setGravity(Gravity.CENTER_HORIZONTAL);
         root.setBackgroundColor(Color.WHITE);
         root.setOrientation(LinearLayout.VERTICAL);
         setContentView(root);
@@ -66,10 +67,12 @@ public class TelaCadastro extends TelaModeloInativo {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 )
         );
+        llBotoes.setGravity(Gravity.CENTER_HORIZONTAL);
         root.addView(llBotoes);
 
         Button btCadastrar = new Button(llBotoes.getContext());
         btCadastrar.setText("Cadastrar");
+        btCadastrar.setGravity(Gravity.CENTER_HORIZONTAL);
         llBotoes.addView(btCadastrar);
 
 
