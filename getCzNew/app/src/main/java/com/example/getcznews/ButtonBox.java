@@ -17,7 +17,7 @@ public class ButtonBox extends LinearLayout {
                 LayoutParams.WRAP_CONTENT
         );
         setLayoutParams(p);
-        setBackgroundColor(Color.BLUE);
+        setBackgroundColor(Color.WHITE);
         setOrientation(LinearLayout.VERTICAL);
         bt = new Button(getContext());
         bt.setText(name);

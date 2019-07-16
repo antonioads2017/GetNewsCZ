@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.getcznews.ButtonBox;
 import com.example.getcznews.TextEdit;
 
 public class TelaCadastro extends TelaModeloInativo {
@@ -70,8 +71,7 @@ public class TelaCadastro extends TelaModeloInativo {
         llBotoes.setGravity(Gravity.CENTER_HORIZONTAL);
         root.addView(llBotoes);
 
-        Button btCadastrar = new Button(llBotoes.getContext());
-        btCadastrar.setText("Cadastrar");
+        ButtonBox btCadastrar = new ButtonBox(llBotoes.getContext(),"Cadastrar");
         btCadastrar.setGravity(Gravity.CENTER_HORIZONTAL);
         llBotoes.addView(btCadastrar);
 
