@@ -22,12 +22,12 @@ public class TituloBox extends LinearLayout {
         this.name = name;
         this.setLayoutParams(
                 new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.MATCH_PARENT
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
                 )
         );
-        this.setBackgroundColor(Color.RED);
-        this.setOrientation(LinearLayout.VERTICAL);
+//        this.setBackgroundColor(Color.RED);
+        this.setOrientation(LinearLayout.HORIZONTAL);
         criarTitulo();
     }
 
@@ -35,8 +35,8 @@ public class TituloBox extends LinearLayout {
         llTitulo = new LinearLayout(this.getContext());
         llTitulo.setLayoutParams(
                 new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.MATCH_PARENT
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
                 )
         );
         this.addView(llTitulo);
