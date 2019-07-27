@@ -35,8 +35,11 @@ public final class Login {
     public boolean logar(String usuario, String senha){
         logado = usuario.equals(USUARIO) &&
                 senha.equals(SENHA);
-
         return logado;
+    }
+
+    public void sair(){
+        logado = false;
     }
 
 

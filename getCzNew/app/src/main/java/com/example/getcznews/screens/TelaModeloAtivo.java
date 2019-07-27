@@ -1,5 +1,6 @@
 package com.example.getcznews.screens;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,7 +9,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.getcznews.R;
-import com.example.getcznews.TituloBox;
+import com.example.getcznews.controler.Login;
 
 /***********************
  * TelaModeloAtivo
@@ -19,16 +20,22 @@ import com.example.getcznews.TituloBox;
 
 public abstract class TelaModeloAtivo extends TelaPadrao{
 
+    /******************************************
+     * Valores das ordens e identificadores do menu
+     ******************************************/
+    private final int ITEM_INDEX_MODIFICAR_DADOS     = 0;
+    private final int ITEM_INDEX_DESATIVAR_PERFIL    = 1;
+    private final int ITEM_INDEX_SAIR                = 2;
+
     //Construção da classe atribindo o valor 'true' para soLogado
     protected TelaModeloAtivo() {
         super(true);
-
     }
 
 
     /****************************************************
      * Caso o médoto redirecionar() da classe TelaPadrão
-     * Seja chamado, será redirecionado para TelaLogin
+     * seja chamado, será redirecionado para TelaLogin
      *****************************************************/
     @Override
     protected void redirecionar() {
@@ -41,39 +48,41 @@ public abstract class TelaModeloAtivo extends TelaPadrao{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
-//        android.support.v7.widget.Toolbar toolbar = new Toolbar(this);
-//        toolbar.setLayoutParams(getRoot().getLayoutParams());
-//        toolbar.setPopupTheme(R.style.AppTheme);
-//        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-//        toolbar.setTitle("This is the title");
-//        toolbar.setVisibility(View.VISIBLE);
-//        getRoot().addView(toolbar);
-        //setSupportActionBar(toolbar);
-//
-//        tituloBox = new TituloBox(getRoot().getContext(),"titulo");
-//        getRoot().addView(tituloBox);
-
-//        ActionBar ab = getActionBar();
-//        ab.setDisplayHomeAsUpEnabled(true);
+        ActionBar ab = getActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        MenuItem m1 = menu.add(0,0,0,"Item 1");
-        m1.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        /*******************
+         * Criação do Menu
+         *******************/
 
-        MenuItem m2 = menu.add(0,1,1,"Item 2");
-        m2.setIcon(R.drawable.ic_launcher_foreground);
-        m2.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        //Menu Modificar Dados
+        MenuItem miModificarDados = menu.add(
+                0,
+                ITEM_INDEX_MODIFICAR_DADOS,
+                ITEM_INDEX_MODIFICAR_DADOS,
+                "Modificar Dados");
+        miModificarDados.setShowAsAction(MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
-        MenuItem m3 = menu.add(0,2,2,"Item 3");
-        m3.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        //Menu Desativar Perfil
+        MenuItem miDesativarPerfil = menu.add(
+                0,
+                ITEM_INDEX_DESATIVAR_PERFIL,
+                ITEM_INDEX_DESATIVAR_PERFIL,
+                "DesativarPerfil");
+        miDesativarPerfil.setShowAsAction(MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
-        MenuItem m4 = menu.add(0,3,3,"Item 4");
-        m4.setShowAsAction(MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+        //Menu Sair
+        MenuItem miSair = menu.add(
+                0,
+                ITEM_INDEX_SAIR,
+                ITEM_INDEX_SAIR,
+                "Sair");
+        miSair.setShowAsAction(MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+
         return true;
     }
 
@@ -81,22 +90,32 @@ public abstract class TelaModeloAtivo extends TelaPadrao{
     public boolean onMenuItemSelected(int panel, MenuItem item){
         switch (item.getItemId()){
             case android.R.id.home:
+                startActivity(
+                        new Intent(this, TelaPrincipal.class)
+                );
                 Toast.makeText(this, "Home",Toast.LENGTH_SHORT).show();
                 break;
-            case 0:
-                Toast.makeText(this, "Item 1",Toast.LENGTH_SHORT).show();
+            case ITEM_INDEX_MODIFICAR_DADOS:
+                Toast.makeText(this, "Modificar Dados",Toast.LENGTH_SHORT).show();
                 break;
-            case 1:
-                Toast.makeText(this, "Item 2",Toast.LENGTH_SHORT).show();
+            case ITEM_INDEX_DESATIVAR_PERFIL:
+                Toast.makeText(this, "Desativar Perfil",Toast.LENGTH_SHORT).show();
                 break;
-            case 2:
-                Toast.makeText(this, "Item 3",Toast.LENGTH_SHORT).show();
-                break;
-            case 3:
-                Toast.makeText(this, "Item 4",Toast.LENGTH_SHORT).show();
+            case ITEM_INDEX_SAIR:
+                Toast.makeText(this, "Sair",Toast.LENGTH_SHORT).show();
+                onLogoff();
                 break;
         }
         return true;
     }
 
+
+    private void onLogoff(){
+        Login.getInstance().sair();
+        startActivity(
+                new Intent(this, TelaLogin.class)
+        );
+    }
+
 }
+

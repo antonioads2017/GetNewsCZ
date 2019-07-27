@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.getcznews.TextEdit;
 import com.example.getcznews.controler.Login;
@@ -19,18 +20,16 @@ import java.lang.reflect.Array;
 
 public class TelaLogin extends TelaModeloInativo {
 
-    public TelaLogin() {
+    private TextEdit teUsuario;
+    private TextEdit teSenha;
 
-    }
+    public TelaLogin() {}
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         soLogado = false;
-
-        ActionBar ab = getActionBar();
-        ab.hide();
 
         final LinearLayout root = new LinearLayout(this);
         root.setLayoutParams(
@@ -58,14 +57,14 @@ public class TelaLogin extends TelaModeloInativo {
         root.addView(tvLogin);
 
         //USUARIO
-        TextEdit teUsuario = new TextEdit(
+        teUsuario = new TextEdit(
                 this,
                 root,
                 "Usuário"
         );
 
         //SENHA
-        TextEdit teSenha = new TextEdit(
+        teSenha = new TextEdit(
                 this,
                 root,
                 "Senha"
@@ -114,8 +113,12 @@ public class TelaLogin extends TelaModeloInativo {
     }
 
     private void onLogar(){
-        Login.getInstance().logar("eu","123");
-        redirecionar();
+        if (Login.getInstance().logar(
+                teUsuario.getValue(),
+                teSenha.getValue()))
+            redirecionar();
+        else
+            Toast.makeText(this, "Usuário ou senha inválido",Toast.LENGTH_LONG).show();
     }
     private void cadastro(){
         startActivity(new Intent(TelaLogin.this,TelaCadastro.class));
