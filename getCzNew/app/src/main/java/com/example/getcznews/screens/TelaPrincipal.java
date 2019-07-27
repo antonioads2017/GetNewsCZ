@@ -1,20 +1,15 @@
 package com.example.getcznews.screens;
 
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.getcznews.ListNews;
-import com.example.getcznews.R;
-import com.example.getcznews.TextEdit;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class TelaPrincipal extends TelaModeloAtivo {

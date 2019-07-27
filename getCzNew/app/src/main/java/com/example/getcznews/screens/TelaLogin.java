@@ -1,5 +1,6 @@
 package com.example.getcznews.screens;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import com.example.getcznews.TextEdit;
 import com.example.getcznews.controler.Login;
 
+import java.lang.reflect.Array;
+
 public class TelaLogin extends TelaModeloInativo {
 
     public TelaLogin() {
@@ -26,6 +29,9 @@ public class TelaLogin extends TelaModeloInativo {
 
         soLogado = false;
 
+        ActionBar ab = getActionBar();
+        ab.hide();
+
         final LinearLayout root = new LinearLayout(this);
         root.setLayoutParams(
                 new LinearLayout.LayoutParams(
@@ -34,7 +40,7 @@ public class TelaLogin extends TelaModeloInativo {
                 )
         );
 
-        root.setBackgroundColor(Color.GRAY);
+        root.setBackgroundColor(Color.WHITE);
         root.setOrientation(LinearLayout.VERTICAL);
         setContentView(root);
 
