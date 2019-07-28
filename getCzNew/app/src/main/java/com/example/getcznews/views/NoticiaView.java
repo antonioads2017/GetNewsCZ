@@ -1,12 +1,10 @@
 package com.example.getcznews.views;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.AsyncTask;
-import android.util.Log;
-import android.view.View;
+import android.graphics.Paint;
+import android.os.Build;
+import android.text.Layout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,9 +13,11 @@ import com.example.getcznews.R;
 import com.example.getcznews.domain.Noticia;
 import com.squareup.picasso.Picasso;
 
-import java.io.InputStream;
-
 public class NoticiaView extends LinearLayout{
+
+    private final int TAM_TEXTO  = 200;
+    private final int TAM_TITULO = 12;
+    private final int TAM_LINK = 32;
 
     private Noticia noticia;
     private ImageView imageView;
@@ -27,18 +27,23 @@ public class NoticiaView extends LinearLayout{
                 LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT
         );
+        setPadding(30,30,30,30);
         setLayoutParams(p);
 
-        setBackgroundColor(Color.GREEN);
+
+        setBackgroundColor(Color.WHITE);
         setOrientation(LinearLayout.HORIZONTAL);
         criarImagem();
 
         LinearLayout painelTexto = new LinearLayout(this.getContext());
         painelTexto.setOrientation(LinearLayout.VERTICAL);
+        painelTexto.setPadding(30,0,0,0);
+
         this.addView(painelTexto);
 
-        criarTexto(noticia.getTitulo(),painelTexto);
-        criarTexto(noticia.getTexto(), painelTexto);
+        criarTitulo(painelTexto);
+        criarTexto(painelTexto);
+        criarOrigem(painelTexto);
     }
 
     public NoticiaView(Context context, Noticia noticia) {
@@ -47,23 +52,59 @@ public class NoticiaView extends LinearLayout{
         init();
     }
 
-    private void criarTexto(String texto, LinearLayout linearLayout){
+    /********************************************
+     * Criando o título da notícia no ListView
+     ********************************************/
+    private void criarTitulo(LinearLayout linearLayout){
+
+        TextView titulo = criarTextView(
+                subTexto(noticia.getTitulo(),TAM_TITULO),
+                linearLayout);
+        titulo.setPaintFlags(Paint.FAKE_BOLD_TEXT_FLAG);
+        titulo.setTextSize(14);
+    }
+
+    /****************************************
+     * Criando o texto da notícia no listView
+     ****************************************/
+    private void criarTexto(LinearLayout linearLayout){
+        TextView texto = criarTextView(
+                subTexto(noticia.getTexto(),TAM_TEXTO),
+                linearLayout);
+        texto.setTextSize(12);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            texto.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD);
+        }
+    }
+
+    /************************************************
+     * Criando o link da origem da notícia
+     *************************************************/
+    private void criarOrigem(LinearLayout linearLayout){
+        String texto = "Origem: <"+subTexto(noticia.getLink(),TAM_LINK)+">";
+        TextView origem = criarTextView(
+                texto,
+                linearLayout);
+        origem.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+        origem.setTextSize(10);
+    }
+
+    /*******************************************
+     * Criação do TextView
+     *********************************************/
+    private TextView criarTextView(String texto, LinearLayout linearLayout){
         TextView textView = new TextView(linearLayout.getContext());
         textView.setText(texto);
         linearLayout.addView(textView);
+        return textView;
     }
 
+    /**************************************
+     * Criando a imagem da notícia
+     **************************************/
     private void criarImagem(){
 
         imageView = new ImageView(this.getContext());
-
-//        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-
-//        imageView.setImageDrawable(
-//                new ImageView(getContext())
-//                        .getResources()
-//                        .getDrawable(
-//                                R.drawable.ic_launcher_foreground));
 
         Picasso.get()
                 .load(noticia.getUrlImage())
@@ -72,48 +113,18 @@ public class NoticiaView extends LinearLayout{
                 .error(R.drawable.ic_launcher_foreground)
                 .into(imageView);
 
-
-//        View v = new ImageView(getContext());
-//        ImageView imageView = new ImageView(this.getContext());
-//        imageView.setImageDrawable(v.getResources().getDrawable(R.drawable.ic_launcher_foreground));
-
-//        Picasso.get()
-//                .load(noticia.getUrlImage())
-//                .resize(50,50)
-//                .centerCrop()
-//                .into(imageView);
-
         this.addView(imageView);
-
-//        new DownloadImageTask(imageView)
-//                .execute(noticia.getUrlImage());
-
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
+    /*****************************************
+     * Cortando o texto de acordo com o tamanho informado
+     *****************************************/
+    private String subTexto(String texto, int tamanho){
+        int tamTexto = texto.length();
+        if (tamTexto < tamanho)
+            return texto;
+        tamanho = tamanho > 3?tamanho -3: tamanho;
+        return texto.substring(0,tamanho - 3) + "..." ;
     }
-
 
 }
