@@ -15,19 +15,35 @@ import com.squareup.picasso.Picasso;
 
 public class NoticiaView extends LinearLayout{
 
-    private final int TAM_TEXTO  = 200;
-    private final int TAM_TITULO = 12;
-    private final int TAM_LINK = 32;
+    private final int TAM_TEXTO        = 200;
+    private final int TAM_TITULO       = 12;
+    private final int TAM_LINK         = 32;
+
+    private final int PADDING_SIZE     = 30;
+
+    private final int LARGURA_IMAGEM   = 200;
+    private final int ALTURA_IMAGEM    = 200;
 
     private Noticia noticia;
     private ImageView imageView;
+
+    public NoticiaView(Context context, Noticia noticia) {
+        super(context);
+        this.noticia = noticia;
+        init();
+    }
 
     private void init(){
         LinearLayout.LayoutParams p = new LayoutParams(
                 LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT
         );
-        setPadding(30,30,30,30);
+        setPadding(
+                PADDING_SIZE,
+                PADDING_SIZE,
+                PADDING_SIZE,
+                PADDING_SIZE);
+
         setLayoutParams(p);
 
 
@@ -37,19 +53,18 @@ public class NoticiaView extends LinearLayout{
 
         LinearLayout painelTexto = new LinearLayout(this.getContext());
         painelTexto.setOrientation(LinearLayout.VERTICAL);
-        painelTexto.setPadding(30,0,0,0);
+
+        painelTexto.setPadding(
+                PADDING_SIZE,
+                0,
+                0,
+                0);
 
         this.addView(painelTexto);
 
         criarTitulo(painelTexto);
         criarTexto(painelTexto);
         criarOrigem(painelTexto);
-    }
-
-    public NoticiaView(Context context, Noticia noticia) {
-        super(context);
-        this.noticia = noticia;
-        init();
     }
 
     /********************************************
@@ -109,7 +124,7 @@ public class NoticiaView extends LinearLayout{
         Picasso.get()
                 .load(noticia.getUrlImage())
                 .centerCrop()
-                .resize(200,200)
+                .resize(LARGURA_IMAGEM,ALTURA_IMAGEM)
                 .error(R.drawable.ic_launcher_foreground)
                 .into(imageView);
 

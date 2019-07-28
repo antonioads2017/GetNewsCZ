@@ -63,12 +63,17 @@ public class TelaLogin extends TelaModeloInativo {
                 "Usuário"
         );
 
+        teUsuario.getEt().setText("eu");
+
         //SENHA
         teSenha = new TextEdit(
                 this,
                 root,
                 "Senha"
         );
+
+        teSenha.getEt().setText("123");
+
         teSenha.getEt().setTransformationMethod(new PasswordTransformationMethod());
 
 
