@@ -28,13 +28,13 @@ public class TelaPrincipal extends TelaModeloAtivo {
 
         List<Noticia> noticias = new ArrayList<>();
 
-        for (int x = 0; x < 30; ++x){
+        for (int x = 0; x < 130; ++x){
             noticias.add(
                     new Noticia(
                             x,
                             "Título "+ String.valueOf(x +1),
                             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tristique luctus magna eget iaculis. Pellentesque scelerisque orci ultrices elementum bibendum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas purus sapien, vestibulum eget tincidunt ac, finibus vitae est. Quisque bibendum condimentum arcu, vel facilisis eros fringilla quis. Aliquam sed nibh ut mauris ultrices ullamcorper quis a ante. Maecenas in mauris dictum, mollis lectus id, fermentum est. Vivamus dictum ornare nunc sed condimentum. Quisque vel lacus diam. Quisque sem elit, auctor sit amet nisl a, accumsan tincidunt felis.",
-                            "https://www.phy.cam.ac.uk/students/teaching/teachingfiles/new.gif/image",
+                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKj3fglpYyBCh6XAUkSCFXbX8x5yi7vHg-XCSv06Xr_XqEoCzk",
                             "https://g1.globo.com/",
                             false)
             );
