@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.text.Layout;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,7 +14,7 @@ import com.example.getcznews.R;
 import com.example.getcznews.domain.Noticia;
 import com.squareup.picasso.Picasso;
 
-public class NoticiaView extends LinearLayout{
+public class NoticiaView extends LinearLayout {
 
     private final int TAM_TEXTO        = 200;
     private final int TAM_TITULO       = 12;
@@ -34,7 +35,11 @@ public class NoticiaView extends LinearLayout{
     }
 
     private void init(){
-        LinearLayout.LayoutParams p = new LayoutParams(
+//        LinearLayout.LayoutParams p = new LayoutParams(
+//                LayoutParams.MATCH_PARENT,
+//                LayoutParams.MATCH_PARENT
+//        );
+        AbsListView.LayoutParams p = new AbsListView.LayoutParams(
                 LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT
         );
