@@ -1,4 +1,8 @@
 package com.example.getcznews.dao;
 
-public interface NoticiaDAO {
+import com.example.getcznews.domain.Noticia;
+
+public interface NoticiaDAO extends DefaulDAO<Noticia> {
+
+    void excluirVisualizada();
 }
