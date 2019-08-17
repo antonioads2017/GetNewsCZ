@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.example.getcznews.views.NoticiaView;
+import com.example.getcznews.screens.NoticiaView;
 import com.example.getcznews.domain.Noticia;
 
 import java.util.List;
@@ -20,6 +20,7 @@ public class AdapterNoticiaPersonalizado extends BaseAdapter {
         this.act = act;
     }
 
+
     @Override
     public int getCount() {
         return noticias.size();
@@ -32,12 +33,11 @@ public class AdapterNoticiaPersonalizado extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return noticias.get(position).getId();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         View view = new NoticiaView(parent.getContext(),(Noticia) getItem(position));
         return view;
     }

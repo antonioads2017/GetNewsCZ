@@ -1,4 +1,6 @@
 package com.example.getcznews.dao;
 
-public interface FonteDAO {
+import com.example.getcznews.domain.Fonte;
+
+public interface FonteDAO extends DefaulDAO<Fonte> {
 }

@@ -1,4 +1,4 @@
-package com.example.getcznews.views;
+package com.example.getcznews.screens;
 
 import android.content.Context;
 import android.graphics.Color;

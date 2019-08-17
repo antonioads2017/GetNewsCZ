@@ -1,9 +1,14 @@
 package com.example.getcznews.screens;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.getcznews.adapter.AdapterNoticiaPersonalizado;
 import com.example.getcznews.domain.Noticia;
@@ -12,14 +17,15 @@ import com.example.getcznews.services.TimeView;
 import com.example.getcznews.services.TimeWeb;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
 public class TelaPrincipal extends TelaModeloAtivo {
 
-    private static final int DELAY_TIME_WEB = 5000;
+    private static final int DELAY_TIME_WEB = 60000;
 
     private final String TITULO_LISTA_NOTICIA = "Lista de notícias atualizada em: ";
     private ListView lvNoticias;
@@ -49,16 +55,27 @@ public class TelaPrincipal extends TelaModeloAtivo {
 
     private void criarTitulo(){
         tvTitulo = new TextView(getRoot().getContext());
+        tvTitulo.setGravity(Gravity.CENTER);
         getRoot().addView(tvTitulo);
     }
 
     private void criarListaNoticias(){
         lvNoticias = new ListView(getRoot().getContext());
         getRoot().addView(lvNoticias);
+
+        lvNoticias.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        onClickItem(l);
+                    }
+                }
+        );
+
     }
 
     private String getDataComoString(){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM HH:mm");
         Date data = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(data);
@@ -74,23 +91,18 @@ public class TelaPrincipal extends TelaModeloAtivo {
 
         List<Noticia> noticias = new NoticiaService(this).getListaNoticias();
 
-//        List<Noticia> noticias = new ArrayList<>();
-//
-//        for (int x = 0; x < 13; ++x){
-//            noticias.add(
-//                    new Noticia(
-//                            x,
-//                            "Título "+ String.valueOf(x +1) + " " + Long.toString(System.currentTimeMillis()),
-//                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tristique luctus magna eget iaculis. Pellentesque scelerisque orci ultrices elementum bibendum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas purus sapien, vestibulum eget tincidunt ac, finibus vitae est. Quisque bibendum condimentum arcu, vel facilisis eros fringilla quis. Aliquam sed nibh ut mauris ultrices ullamcorper quis a ante. Maecenas in mauris dictum, mollis lectus id, fermentum est. Vivamus dictum ornare nunc sed condimentum. Quisque vel lacus diam. Quisque sem elit, auctor sit amet nisl a, accumsan tincidunt felis.",
-//                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKj3fglpYyBCh6XAUkSCFXbX8x5yi7vHg-XCSv06Xr_XqEoCzk",
-//                            "https://g1.globo.com/",
-//                            false)
-//            );
-//        }
-
         AdapterNoticiaPersonalizado adapter = new AdapterNoticiaPersonalizado(noticias,this);
         lvNoticias.setAdapter(adapter);
 
+    }
+
+    private void onClickItem(long id){
+
+        Toast.makeText(this, "Clicou "+id+" !!!!!!!!!!", LENGTH_SHORT).show();
+
+        Intent intent = new Intent(this, TelaVerNoticia.class);
+        intent.putExtra(TelaVerNoticia.EXTRA_MESSAGE,id);
+        startActivity(intent);
     }
 
 }

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.getcznews.database.DBCore;
+import com.example.getcznews.domain.Fonte;
 import com.example.getcznews.domain.Noticia;
 
 import java.util.ArrayList;
@@ -15,13 +16,19 @@ public class NoticiaDAOImpl implements NoticiaDAO {
 
 
     private SQLiteDatabase dataBase;
+    private FonteDAO fonteDAO;
 
     private String[] colunas;
 
     private Noticia lerNoticiaDaTabela(Cursor cursor){
+
+        Fonte fonte = fonteDAO.buscar(cursor.getLong(1));
+        if (fonte == null)
+            fonte = new Fonte();
+
         return new Noticia(
                 cursor.getLong(0),
-                cursor.getLong(1),
+                fonte,
                 cursor.getString(2),
                 cursor.getString(3),
                 cursor.getString(4),
@@ -30,18 +37,10 @@ public class NoticiaDAOImpl implements NoticiaDAO {
 
     public NoticiaDAOImpl(Context context) {
         dataBase = new DBCore(context).getWritableDatabase();
-
-//        _id INTEGER PRIMARY KEY AUTOINCREMENT," +
-//        " link_id INTEGER, " +
-//                " titulo TEXT," +
-//                " texto TEXT," +
-//                " urlimage TEXT," +
-//                " visualizada INTEGER DEFAULT 0," +
-
-
+        fonteDAO = new FonteDAOImpl(context);
         colunas = new String[]{
                 "_id",
-                "link_id",
+                "fonte_id",
                 "titulo",
                 "texto",
                 "urlimage",
@@ -51,7 +50,7 @@ public class NoticiaDAOImpl implements NoticiaDAO {
     @Override
     public void salvar(Noticia object) {
         ContentValues valores = new ContentValues();
-        valores.put("link_id",object.getLinkId());
+        valores.put("fonte_id",object.getFonte().getId());
         valores.put("titulo",object.getTitulo());
         valores.put("texto",object.getTexto());
         valores.put("urlimage",object.getUrlImage());
@@ -62,7 +61,7 @@ public class NoticiaDAOImpl implements NoticiaDAO {
     @Override
     public void editar(Noticia object) {
         ContentValues valores = new ContentValues();
-        valores.put("link_id",object.getLinkId());
+        valores.put("fonte_id",object.getFonte().getId());
         valores.put("titulo",object.getTitulo());
         valores.put("texto",object.getTexto());
         valores.put("urlimage",object.getUrlImage());
