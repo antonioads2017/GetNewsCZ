@@ -10,36 +10,34 @@ import com.example.getcznews.domain.Noticia;
 import com.example.getcznews.services.TimeView;
 import com.example.getcznews.services.TimeWeb;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.util.Timer;
 
 public class TelaPrincipal extends TelaModeloAtivo {
 
+    private static final int DELAY_TIME_WEB = 5000;
+
+    private final String TITULO_LISTA_NOTICIA = "Lista de notícias atualizada em: ";
     private ListView lvNoticias;
+    private TextView tvTitulo;
 
-    static{
-        TimeWeb.init();
-    }
-
+    static{ TimeWeb.init(DELAY_TIME_WEB); }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        criarTitulo();
+        criarListaNoticias();
+    }
 
-        //TITULO
-        TextView tvTitulo = new TextView(getRoot().getContext());
-        tvTitulo.setText("Lista de Notícias");
-        getRoot().addView(tvTitulo);
-
-        //LISTVIEW
-        lvNoticias = new ListView(getRoot().getContext());
-
-
-
-
-        getRoot().addView(lvNoticias);
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TimeView.setPrincipal(this);
+        atualizarLista();
     }
 
     @Override
@@ -48,18 +46,34 @@ public class TelaPrincipal extends TelaModeloAtivo {
         TimeView.setPrincipal(null);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        TimeView.setPrincipal(this);
+    private void criarTitulo(){
+        tvTitulo = new TextView(getRoot().getContext());
+        getRoot().addView(tvTitulo);
+    }
+
+    private void criarListaNoticias(){
+        lvNoticias = new ListView(getRoot().getContext());
+        getRoot().addView(lvNoticias);
+    }
+
+    private String getDataComoString(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date data = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(data);
+        Date dataAtual = cal.getTime();
+        return dateFormat.format(dataAtual);
     }
 
 
     public void atualizarLista(){
 
+        //Atualizando o titulo da lista de notícias
+        tvTitulo.setText(TITULO_LISTA_NOTICIA + getDataComoString());
+
         List<Noticia> noticias = new ArrayList<>();
 
-        for (int x = 0; x < 3; ++x){
+        for (int x = 0; x < 13; ++x){
             noticias.add(
                     new Noticia(
                             x,
