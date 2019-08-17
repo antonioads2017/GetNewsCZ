@@ -5,8 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Layout;
-import android.text.SpannableString;
-import android.util.Log;
 import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,6 +34,7 @@ public class TelaVerNoticia extends TelaModeloAtivo {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         long idNoticia = getIntent().getLongExtra(EXTRA_MESSAGE,0);
+        getRoot().setPadding(30,30,30,30);
         noticia = new NoticiaService(this).getNoticiaId(idNoticia);
         criarTitulo();
         criarFonte();
