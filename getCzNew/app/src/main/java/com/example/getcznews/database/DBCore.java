@@ -33,7 +33,7 @@ public class DBCore extends SQLiteOpenHelper {
                 " titulo TEXT," +
                 " texto TEXT," +
                 " urlimage TEXT," +
-                " visualizada INTEGER DEFAULT 1," +
+                " visualizada INTEGER DEFAULT 0," +
                 " CONSTRAINT noticia_fkey " +
                 "   FOREIGN KEY (link_id) " +
                 "   REFERENCES link(_id) " +
