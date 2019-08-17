@@ -18,7 +18,7 @@ public class NoticiaView extends LinearLayout {
 
     private final int TAM_TEXTO        = 200;
     private final int TAM_TITULO       = 120;
-    private final int TAM_LINK         = 32;
+    private final int TAM_FONTE         = 32;
 
     private final int PADDING_SIZE     = 30;
 
@@ -101,7 +101,7 @@ public class NoticiaView extends LinearLayout {
      * Criando o link da origem da notícia
      *************************************************/
     private void criarOrigem(LinearLayout linearLayout){
-        String texto = "Origem: <"+subTexto(noticia.getLink(),TAM_LINK)+">";
+        String texto = "Origem: <"+subTexto(noticia.getFonte().getNome(),TAM_FONTE)+">";
         TextView origem = criarTextView(
                 texto,
                 linearLayout);
