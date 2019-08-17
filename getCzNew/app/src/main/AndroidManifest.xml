@@ -21,6 +21,7 @@
         <activity android:name=".screens.TelaLogin" />
         <activity android:name=".screens.TelaPrincipal"/>
         <activity android:name=".screens.TelaCadastro"/>
+        <activity android:name=".screens.TelaVerNoticia"/>
 
     </application>
 
