@@ -20,8 +20,8 @@ public class NoticiaDAOImpl implements NoticiaDAO {
 
     private Noticia lerNoticiaDaTabela(Cursor cursor){
         return new Noticia(
-                cursor.getInt(0),
-                cursor.getString(1),
+                cursor.getLong(0),
+                cursor.getLong(1),
                 cursor.getString(2),
                 cursor.getString(3),
                 cursor.getString(4),
@@ -30,22 +30,31 @@ public class NoticiaDAOImpl implements NoticiaDAO {
 
     public NoticiaDAOImpl(Context context) {
         dataBase = new DBCore(context).getWritableDatabase();
+
+//        _id INTEGER PRIMARY KEY AUTOINCREMENT," +
+//        " link_id INTEGER, " +
+//                " titulo TEXT," +
+//                " texto TEXT," +
+//                " urlimage TEXT," +
+//                " visualizada INTEGER DEFAULT 0," +
+
+
         colunas = new String[]{
                 "_id",
+                "link_id",
                 "titulo",
                 "texto",
                 "urlimage",
-                "link",
                 "visualizada"};
     }
 
     @Override
     public void salvar(Noticia object) {
         ContentValues valores = new ContentValues();
+        valores.put("link_id",object.getLinkId());
         valores.put("titulo",object.getTitulo());
         valores.put("texto",object.getTexto());
         valores.put("urlimage",object.getUrlImage());
-        valores.put("link",object.getLink());
         valores.put("visualizada",object.isVisualizada()?1:0);
         dataBase.insert("noticia",null,valores);
     }
@@ -53,10 +62,10 @@ public class NoticiaDAOImpl implements NoticiaDAO {
     @Override
     public void editar(Noticia object) {
         ContentValues valores = new ContentValues();
+        valores.put("link_id",object.getLinkId());
         valores.put("titulo",object.getTitulo());
         valores.put("texto",object.getTexto());
         valores.put("urlimage",object.getUrlImage());
-        valores.put("link",object.getLink());
         valores.put("visualizada",object.isVisualizada()?1:0);
         dataBase.update(
                 "noticia",

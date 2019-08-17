@@ -5,38 +5,38 @@ import java.util.Objects;
 
 public class Noticia implements Serializable {
 
-    private int id;
+    private long id;
+    private Fonte fonte;
     private String titulo;
     private String texto;
     private String urlImage;
-    private String link;
     private boolean visualizada;
 
     public Noticia() {}
 
-    public Noticia(String titulo, String texto, String urlImage, String link, boolean visualizada) {
-        this.titulo = titulo;
-        this.texto = texto;
-        this.urlImage = urlImage;
-        this.link = link;
-        this.visualizada = visualizada;
-    }
-
-    public Noticia(int id, String titulo, String texto, String urlImage, String link, boolean visualizada) {
+    public Noticia(long id, Fonte fonte, String titulo, String texto, String urlImage, boolean visualizada) {
         this.id = id;
+        this.fonte = fonte;
         this.titulo = titulo;
         this.texto = texto;
         this.urlImage = urlImage;
-        this.link = link;
         this.visualizada = visualizada;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
+    }
+
+    public Fonte getFonte() {
+        return fonte;
+    }
+
+    public void setFonte(Fonte fonte) {
+        this.fonte = fonte;
     }
 
     public String getTitulo() {
@@ -63,14 +63,6 @@ public class Noticia implements Serializable {
         this.urlImage = urlImage;
     }
 
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
     public boolean isVisualizada() {
         return visualizada;
     }
@@ -91,6 +83,4 @@ public class Noticia implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
-
-
 }
