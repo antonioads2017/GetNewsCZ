@@ -22,25 +22,26 @@ public class DBCore extends SQLiteOpenHelper {
                 " login TEXT NOT NULL UNIQUE, " +
                 " senha TEXT NOT NULL);";
 
-        String criarLink = "CREATE TABLE link(" +
+        String criarFonte = "CREATE TABLE fonte(" +
                 " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                " nome TEXT NOT NULL, " +
                 " site TEXT NOT NULL, " +
                 " feed TEXT NOT NULL);";
 
         String criarNoticia = "CREATE TABLE noticia(" +
                 " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                " link_id TEXT NOT NULL, " +
+                " fonte_id INTEGER, " +
                 " titulo TEXT," +
                 " texto TEXT," +
                 " urlimage TEXT," +
                 " visualizada INTEGER DEFAULT 0," +
                 " CONSTRAINT noticia_fkey " +
-                "   FOREIGN KEY (link_id) " +
-                "   REFERENCES link(_id) " +
+                "   FOREIGN KEY (fonte_id) " +
+                "   REFERENCES fonte(_id) " +
                 "   ON DELETE CASCADE);";
 
         sqLiteDatabase.execSQL(criarUsuario);
-        sqLiteDatabase.execSQL(criarLink);
+        sqLiteDatabase.execSQL(criarFonte);
         sqLiteDatabase.execSQL(criarNoticia);
 
         //Criando os dados Default nas tabelas
@@ -50,10 +51,10 @@ public class DBCore extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         String dropUsuario = "DROP TABLE usuario";
-        String dropLink = "DROP TABLE link";
+        String dropFonte = "DROP TABLE fonte";
         String dropNoticia = "DROP TABLE noticia";
         sqLiteDatabase.execSQL(dropUsuario);
-        sqLiteDatabase.execSQL(dropLink);
+        sqLiteDatabase.execSQL(dropFonte);
         sqLiteDatabase.execSQL(dropNoticia);
         onCreate(sqLiteDatabase);
 
@@ -62,9 +63,9 @@ public class DBCore extends SQLiteOpenHelper {
     private void inserirDadosDefaul(SQLiteDatabase sqLiteDatabase){
         String[] scriptTabela = new String[]{
                 "INSERT INTO usuario(nome, login, senha) VALUES ('Usuário Default','eu','123');",
-                "INSERT INTO link(site,feed) VALUES ('Diário do Sertão','https://www.diariodosertao.com.br/feed/');",
-                "INSERT INTO link(site,feed) VALUES ('Coisas de Cajazeiras','https://www.coisasdecajazeiras.com.br/feed/');",
-                "INSERT INTO link(site,feed) VALUES ('Jornal da Paraíba','http://www.jornaldaparaiba.com.br/feed/');"
+                "INSERT INTO fonte(nome,site,feed) VALUES ('Diário do Sertão', 'https://www.diariodosertao.com.br', 'https://www.diariodosertao.com.br/feed/');",
+                "INSERT INTO fonte(nome,site,feed) VALUES ('Coisas de Cajazeiras', 'https://www.diariodosertao.com.br', 'https://www.coisasdecajazeiras.com.br/feed/');",
+                "INSERT INTO fonte(nome,site,feed) VALUES ('Jornal da Paraíba', 'https://www.diariodosertao.com.br', 'http://www.jornaldaparaiba.com.br/feed/');"
         };
 
         for (String script: scriptTabela) {
