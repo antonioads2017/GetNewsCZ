@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
         setContentView(root);
 
         //VERIFICAR O LOGIN
-        verificarLogin();
+//        verificarLogin();
 
 
 
@@ -43,22 +43,26 @@ public class MainActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        verificarLogin();
+//        verificarLogin();
+        startActivity(
+                new Intent(this, TelaLogin.class)
+        );
     }
+
 
     @Override
     protected void onResume() {
         super.onResume();
-        verificarLogin();
+//        verificarLogin();
     }
 
     private void verificarLogin(){
-        if (!Login.getInstance().isLogado())
-            startActivity(
-                    new Intent(this, TelaLogin.class)
-            );
-        startActivity(
-                new Intent(this, TelaPrincipal.class)
-        );
+//        if (!Login.getInstance().isLogado())
+//            startActivity(
+//                    new Intent(this, TelaLogin.class)
+//            );
+//        startActivity(
+//                new Intent(this, TelaPrincipal.class)
+//        );
     }
 }

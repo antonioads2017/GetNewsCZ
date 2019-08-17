@@ -8,8 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.getcznews.R;
 import com.example.getcznews.controler.Login;
+import com.example.getcznews.services.TimeView;
 
 /***********************
  * TelaModeloAtivo
@@ -39,6 +39,7 @@ public abstract class TelaModeloAtivo extends TelaPadrao{
      *****************************************************/
     @Override
     protected void redirecionar() {
+        TimeView.setPrincipal(null);
         startActivity(
                 new Intent(this, TelaLogin.class)
         );

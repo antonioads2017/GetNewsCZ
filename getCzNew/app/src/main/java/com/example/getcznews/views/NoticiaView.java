@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 public class NoticiaView extends LinearLayout {
 
     private final int TAM_TEXTO        = 200;
-    private final int TAM_TITULO       = 12;
+    private final int TAM_TITULO       = 120;
     private final int TAM_LINK         = 32;
 
     private final int PADDING_SIZE     = 30;
