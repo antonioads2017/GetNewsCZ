@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.widget.LinearLayout;
 
 import com.example.getcznews.controler.Login;
+import com.example.getcznews.services.UsuarioService;
 
 /****************************************
  * TelaPadrao
@@ -25,6 +26,8 @@ import com.example.getcznews.controler.Login;
  ***************************************/
 
 public abstract class TelaPadrao  extends Activity {
+
+    protected UsuarioService usuarioService;
 
     //Variavel que atribui a caracteristica de permanencia na tela logado ou não
     protected boolean soLogado;
@@ -49,6 +52,9 @@ public abstract class TelaPadrao  extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        usuarioService = new UsuarioService(this);
+
         verificarLogin();
 
         root = new LinearLayout(this);
@@ -86,7 +92,7 @@ public abstract class TelaPadrao  extends Activity {
          *Classe Singleton que define o estado de login do usuário.
          * Retorna para a variável logado o estado de login atual
          **************************/
-        boolean logado = Login.getInstance().isLogado();
+        boolean logado = usuarioService.isLogado();
 
 
         /***************************

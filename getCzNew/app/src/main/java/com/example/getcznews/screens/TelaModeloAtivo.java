@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.getcznews.controler.Login;
 import com.example.getcznews.services.TimeView;
+import com.example.getcznews.services.UsuarioService;
 
 /***********************
  * TelaModeloAtivo
@@ -31,7 +32,6 @@ public abstract class TelaModeloAtivo extends TelaPadrao{
     protected TelaModeloAtivo() {
         super(true);
     }
-
 
     /****************************************************
      * Caso o médoto redirecionar() da classe TelaPadrão
@@ -101,6 +101,7 @@ public abstract class TelaModeloAtivo extends TelaPadrao{
                 break;
             case ITEM_INDEX_DESATIVAR_PERFIL:
                 Toast.makeText(this, "Desativar Perfil",Toast.LENGTH_SHORT).show();
+                onDesativarPerfil();
                 break;
             case ITEM_INDEX_SAIR:
                 Toast.makeText(this, "Sair",Toast.LENGTH_SHORT).show();
@@ -110,12 +111,15 @@ public abstract class TelaModeloAtivo extends TelaPadrao{
         return true;
     }
 
+    private void onDesativarPerfil() {
+        usuarioService.desativarPerfil();
+        redirecionar();
+    }
+
 
     private void onLogoff(){
-        Login.getInstance().sair();
-        startActivity(
-                new Intent(this, TelaLogin.class)
-        );
+        usuarioService.sair();
+        redirecionar();
     }
 
 }

@@ -1,16 +1,20 @@
 package com.example.getcznews.screens;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.getcznews.TextEdit;
+import com.example.getcznews.services.UsuarioService;
 
 public class TelaCadastro extends TelaModeloInativo {
 
@@ -19,9 +23,6 @@ public class TelaCadastro extends TelaModeloInativo {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        soLogado=false;
 
         final LinearLayout root = new LinearLayout(this);
         root.setLayoutParams(
@@ -49,13 +50,13 @@ public class TelaCadastro extends TelaModeloInativo {
         root.addView(tvCadastro);
 
         //NOME
-        TextEdit tvNome = new TextEdit(this,root,"Nome");
+        final TextEdit tvNome = new TextEdit(this,root,"Nome");
 
-        //USUARIO
-        TextEdit tvUser = new TextEdit(this,root,"Usuário");
+        //LOGIN
+        final TextEdit tvLogin = new TextEdit(this,root,"Login");
 
         //SENHA
-        TextEdit tvSenha = new TextEdit(this,root,"Senha");
+        final TextEdit tvSenha = new TextEdit(this,root,"Senha");
         tvSenha.getEt().setTransformationMethod(new PasswordTransformationMethod());
 
         //LAYOUT DOS BOTÕES
@@ -70,10 +71,30 @@ public class TelaCadastro extends TelaModeloInativo {
 
         Button btCadastrar = new Button(llBotoes.getContext());
         btCadastrar.setText("Cadastrar");
+        btCadastrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cadastrarUsuario(
+                        tvNome.getValue(),
+                        tvLogin.getValue(),
+                        tvSenha.getValue());
+            }
+        });
+
         llBotoes.addView(btCadastrar);
-
-
-
-
     }
+
+
+    private void cadastrarUsuario(String nome, String login, String senha){
+
+        if (usuarioService.criarUsuario(nome,login,senha)) {
+            Toast.makeText(this, "Cadastro realizado com sucesso.", Toast.LENGTH_LONG).show();
+            startActivity(
+                    new Intent(this, TelaLogin.class)
+            );
+        } else {
+            Toast.makeText(this, "Não foi possível realziar o cadastro.", Toast.LENGTH_LONG).show();
+        }
+    }
+
 }

@@ -15,12 +15,14 @@ import android.widget.Toast;
 
 import com.example.getcznews.TextEdit;
 import com.example.getcznews.controler.Login;
+import com.example.getcznews.domain.Usuario;
+import com.example.getcznews.services.UsuarioService;
 
 import java.lang.reflect.Array;
 
 public class TelaLogin extends TelaModeloInativo {
 
-    private TextEdit teUsuario;
+    private TextEdit teLogin;
     private TextEdit teSenha;
 
     public TelaLogin() {}
@@ -28,8 +30,6 @@ public class TelaLogin extends TelaModeloInativo {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        soLogado = false;
 
         final LinearLayout root = new LinearLayout(this);
         root.setLayoutParams(
@@ -56,14 +56,14 @@ public class TelaLogin extends TelaModeloInativo {
         tvLogin.setGravity(Gravity.CENTER_HORIZONTAL);
         root.addView(tvLogin);
 
-        //USUARIO
-        teUsuario = new TextEdit(
+        //EDITLOGIN
+        teLogin = new TextEdit(
                 this,
                 root,
                 "Usuário"
         );
 
-        teUsuario.getEt().setText("eu");
+        teLogin.getEt().setText("eu");
 
         //SENHA
         teSenha = new TextEdit(
@@ -96,7 +96,7 @@ public class TelaLogin extends TelaModeloInativo {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                       onLogar();
+                       onLogar(teLogin.getValue(),teSenha.getValue());
                     }
                 }
         );
@@ -117,13 +117,15 @@ public class TelaLogin extends TelaModeloInativo {
         );
     }
 
-    private void onLogar(){
-        if (Login.getInstance().logar(
-                teUsuario.getValue(),
-                teSenha.getValue()))
+    private void onLogar(String login, String senha){
+
+        if (usuarioService.logar(login,senha)){
+            Toast.makeText(this, "Usuário logado com sucesso.",Toast.LENGTH_LONG).show();
             redirecionar();
-        else
+        } else {
             Toast.makeText(this, "Usuário ou senha inválido",Toast.LENGTH_LONG).show();
+        }
+
     }
     private void cadastro(){
         startActivity(new Intent(TelaLogin.this,TelaCadastro.class));
