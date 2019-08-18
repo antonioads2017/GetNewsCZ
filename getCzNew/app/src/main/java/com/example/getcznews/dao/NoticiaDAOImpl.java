@@ -127,4 +127,9 @@ public class NoticiaDAOImpl implements NoticiaDAO {
                 "visualizada = ?",
                 new String[]{"1"});
     }
+
+    @Override
+    public void limpar() {
+        dataBase.delete("noticia",null,null);
+    }
 }
