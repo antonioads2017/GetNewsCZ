@@ -17,7 +17,7 @@ public class TimeView  {
         principal.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(principal, "Chamou!!!!",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(principal, "Chamou!!!!",Toast.LENGTH_SHORT).show();
                 principal.atualizarLista();
             }
         });
@@ -27,4 +27,5 @@ public class TimeView  {
     public static void setPrincipal(TelaPrincipal principal) {
         TimeView.principal = principal;
     }
+    public static TelaPrincipal getPrincipal() {return principal;}
 }
