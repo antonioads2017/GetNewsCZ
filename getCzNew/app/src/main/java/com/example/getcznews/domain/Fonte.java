@@ -1,8 +1,14 @@
 package com.example.getcznews.domain;
 
+import java.io.Serializable;
+import java.nio.file.SecureDirectoryStream;
 import java.util.Objects;
 
-public class Fonte {
+
+/*******************************************
+ * Classe responsável pela fonte das notícias
+ *******************************************/
+public class Fonte implements Serializable {
 
     private long id;
     private String nome;

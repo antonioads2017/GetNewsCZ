@@ -3,6 +3,9 @@ package com.example.getcznews.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+/***************************************
+ * Classe correndente ao objeto notícia
+ *************************************/
 public class Noticia implements Serializable {
 
     private long id;

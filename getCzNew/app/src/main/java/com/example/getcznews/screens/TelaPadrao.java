@@ -36,14 +36,30 @@ public abstract class TelaPadrao  extends Activity {
 
     /*************************************
      * Esta classe utiliza o Padrão de Projeto TEMPLATE METHOD
-     * onde a classe que instanciar deverá implementar este método.
+     * onde a classe que instanciar deverá implementar o método:
+     *
+     *   --> void redirecionar() <--
+     *
      * Esta classe abstract deverá direcionar
      * para a tela específica quando o usuário
      * não puder permanecer devido o seu estado
      * de login.
+     *
+     * Quando o usuário NÃO estiver logado só poderá
+     * permanecer nas telas cujo o atributo
+     * "soLogado" for 'false'
+     *
+     * Quando o usuário estiver logado só poderá
+     *      * permanecer nas telas cujo o atributo
+     *      * "soLogado" for 'true'
+     *
      **************************************/
     protected abstract void redirecionar();
 
+    /***************************************
+     * No construtor da classe filha o valor
+     * do "soLogado" será tribuído
+     ***************************************/
     public TelaPadrao(boolean soLogado) {
         this.soLogado = soLogado;
         root = null;
@@ -114,6 +130,11 @@ public abstract class TelaPadrao  extends Activity {
             redirecionar(); //Método abstract
     }
 
+    /**********************************************
+     * Todas as classe que herdarem de TelaPadrão
+     * já teram o root implementado e poderam
+     * acessa-lo por este método.
+     *********************************************/
     public LinearLayout getRoot() {
         return root;
     }

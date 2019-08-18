@@ -4,6 +4,12 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/****************************************************
+ * Classe responsável por realizar a conexão com
+ * a base de dados do SQLite e sobre o versionamento
+ * desta base de dados do aplicativo
+ ****************************************************/
+
 public class DBCore extends SQLiteOpenHelper {
 
     private static final String NOME_DB = "getnewsdb";
@@ -16,18 +22,19 @@ public class DBCore extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        //Script de criação da tabela usuário
         String criarUsuario = "CREATE TABLE usuario(" +
                 " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 " nome TEXT NOT NULL, " +
                 " login TEXT NOT NULL UNIQUE, " +
                 " senha TEXT NOT NULL);";
-
+        //Script de criação da fonte da notícia
         String criarFonte = "CREATE TABLE fonte(" +
                 " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 " nome TEXT NOT NULL, " +
                 " site TEXT NOT NULL, " +
                 " feed TEXT NOT NULL);";
-
+        //Script de criação da notícia
         String criarNoticia = "CREATE TABLE noticia(" +
                 " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 " fonte_id INTEGER, " +
@@ -40,6 +47,7 @@ public class DBCore extends SQLiteOpenHelper {
                 "   REFERENCES fonte(_id) " +
                 "   ON DELETE CASCADE);";
 
+        //Execução dos script de criação das tabelas
         sqLiteDatabase.execSQL(criarUsuario);
         sqLiteDatabase.execSQL(criarFonte);
         sqLiteDatabase.execSQL(criarNoticia);
@@ -48,6 +56,11 @@ public class DBCore extends SQLiteOpenHelper {
         inserirDadosDefaul(sqLiteDatabase);
     }
 
+    /*****************************************************************
+     * Método responsável por realizar o versionamento da base de dados
+     * do aplicativo, sendo chamado quando a versão for INCREMENTADA
+     * ou na criação da base de dados
+     ******************************************************************/
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         String dropUsuario = "DROP TABLE usuario";
@@ -60,6 +73,9 @@ public class DBCore extends SQLiteOpenHelper {
 
     }
 
+    /*****************************************************************
+     * Método responsável pelo povoamento inicial da base de dados
+     ******************************************************************/
     private void inserirDadosDefaul(SQLiteDatabase sqLiteDatabase){
         String[] scriptTabela = new String[]{
                 "INSERT INTO usuario(nome, login, senha) VALUES ('Usuário Default','eu','123');",

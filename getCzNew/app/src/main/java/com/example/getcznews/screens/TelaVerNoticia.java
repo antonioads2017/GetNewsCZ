@@ -14,11 +14,16 @@ import com.example.getcznews.domain.Noticia;
 import com.example.getcznews.services.NoticiaService;
 import com.squareup.picasso.Picasso;
 
+
+/**************************************************
+ * Classe responsável pela visualização da notícia
+ * após ser clicada no listview da TelaPrincipal
+ **************************************************/
 public class TelaVerNoticia extends TelaModeloAtivo {
 
     public static final String EXTRA_MESSAGE = "com.example.getcznews.screens.TelaVerNoticia";
 
-
+    //Definição da largura e altura da imagem
     private final int LARGURA_IMAGEM = 300;
     private final int ALTURA_IMAGEM = 300;
 
@@ -42,6 +47,9 @@ public class TelaVerNoticia extends TelaModeloAtivo {
         criarCorpo();
     }
 
+    /*******************************************
+     * Método responsável pela criação do título da notícia
+     ********************************************/
     private void criarTitulo() {
         tvTitulo = new TextView(getRoot().getContext());
         tvTitulo.setText(noticia.getTitulo());
@@ -51,6 +59,9 @@ public class TelaVerNoticia extends TelaModeloAtivo {
         getRoot().addView(tvTitulo);
     }
 
+    /*******************************************
+     * Método responsável pela criação da fonte da notícia
+     ********************************************/
     private void criarFonte() {
         tvFonte = new TextView(getRoot().getContext());
         tvFonte.setText(noticia.getFonte().getNome());
@@ -60,6 +71,9 @@ public class TelaVerNoticia extends TelaModeloAtivo {
         getRoot().addView(tvFonte);
     }
 
+    /*******************************************
+     * Método responsável pela criação do corpo da notícia
+     ********************************************/
     private void criarCorpo() {
         tvCorpo = new TextView(getRoot().getContext());
         tvCorpo.setText(noticia.getTexto());
@@ -70,6 +84,9 @@ public class TelaVerNoticia extends TelaModeloAtivo {
         getRoot().addView(tvCorpo);
     }
 
+    /*******************************************
+     * Método responsável pela criação da imagem da notícia
+     ********************************************/
     private void criarImagem() {
         ivFoto = new ImageView(getRoot().getContext());
 

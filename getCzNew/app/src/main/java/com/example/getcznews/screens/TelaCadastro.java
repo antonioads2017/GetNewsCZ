@@ -16,6 +16,9 @@ import android.widget.Toast;
 import com.example.getcznews.TextEdit;
 import com.example.getcznews.services.UsuarioService;
 
+/*************************************************************
+ * Classe responsável pela tela de cadastro do usuário
+ ************************************************************/
 public class TelaCadastro extends TelaModeloInativo {
 
     public TelaCadastro(){}
@@ -24,51 +27,29 @@ public class TelaCadastro extends TelaModeloInativo {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final LinearLayout root = new LinearLayout(this);
-        root.setLayoutParams(
-                new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.MATCH_PARENT
-                )
-        );
-
-        root.setBackgroundColor(Color.WHITE);
-        root.setOrientation(LinearLayout.VERTICAL);
-        setContentView(root);
-
-        //TITULO
-        TextView tvTitulo = new TextView(root.getContext());
-        tvTitulo.setText("GetNews");
-        tvTitulo.setTextSize(40);
-        tvTitulo.setGravity(Gravity.CENTER_HORIZONTAL);
-        root.addView(tvTitulo);
-
-        //CADASTRO
-        TextView tvCadastro = new TextView(root.getContext());
-        tvCadastro.setText("Cadastre-se");
-        tvCadastro.setGravity(Gravity.CENTER_HORIZONTAL);
-        root.addView(tvCadastro);
+        criarTitulo();
+        criarTexto();
 
         //NOME
-        final TextEdit tvNome = new TextEdit(this,root,"Nome");
+        final TextEdit tvNome = new TextEdit(this,getRoot(),"Nome");
 
         //LOGIN
-        final TextEdit tvLogin = new TextEdit(this,root,"Login");
+        final TextEdit tvLogin = new TextEdit(this,getRoot(),"Login");
 
         //SENHA
-        final TextEdit tvSenha = new TextEdit(this,root,"Senha");
+        final TextEdit tvSenha = new TextEdit(this,getRoot(),"Senha");
         tvSenha.getEt().setTransformationMethod(new PasswordTransformationMethod());
 
         //LAYOUT DOS BOTÕES
-        LinearLayout llBotoes = new LinearLayout(root.getContext());
+        LinearLayout llBotoes = new LinearLayout(getRoot().getContext());
         llBotoes.setLayoutParams(
                 new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.WRAP_CONTENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 )
         );
-        root.addView(llBotoes);
-
+        getRoot().addView(llBotoes);
+        //BOTAO PARA REALIZA O CADASTRO DO USUÁRIO
         Button btCadastrar = new Button(llBotoes.getContext());
         btCadastrar.setText("Cadastrar");
         btCadastrar.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +66,33 @@ public class TelaCadastro extends TelaModeloInativo {
     }
 
 
+    /***************************************
+     * Método para criar o título da página
+     ****************************************/
+    private void criarTitulo() {
+        //TITULO
+        TextView tvTitulo = new TextView(getRoot().getContext());
+        tvTitulo.setText("GetNews");
+        tvTitulo.setTextSize(40);
+        tvTitulo.setGravity(Gravity.CENTER_HORIZONTAL);
+        getRoot().addView(tvTitulo);
+    }
+
+    /*****************************************
+     * Método para criar o texto da página
+     ******************************************/
+    private void criarTexto() {
+        //CADASTRO
+        TextView tvCadastro = new TextView(getRoot().getContext());
+        tvCadastro.setText("Cadastre-se");
+        tvCadastro.setGravity(Gravity.CENTER_HORIZONTAL);
+        getRoot().addView(tvCadastro);
+    }
+
+
+    /***************************************************************************
+     *Método que realiza o cadastro do usuário atraves da classe usuarioService
+     *****************************************************************************/
     private void cadastrarUsuario(String nome, String login, String senha){
 
         if (usuarioService.criarUsuario(nome,login,senha)) {

@@ -14,6 +14,10 @@ import com.example.getcznews.R;
 import com.example.getcznews.domain.Noticia;
 import com.squareup.picasso.Picasso;
 
+/*********************************
+ * Classe responsável pela apresentação
+ * da notícia no listView da TelaPrincipal
+ ******************************************/
 public class NoticiaView extends LinearLayout {
 
     private final int TAM_TEXTO        = 200;
@@ -28,6 +32,9 @@ public class NoticiaView extends LinearLayout {
     private Noticia noticia;
     private ImageView imageView;
 
+    /***************************************************************
+     * Classe que apresenta as noticias no listView da TelaPrincipal
+     ****************************************************************/
     public NoticiaView(Context context, Noticia noticia) {
         super(context);
         this.noticia = noticia;
@@ -35,10 +42,6 @@ public class NoticiaView extends LinearLayout {
     }
 
     private void init(){
-//        LinearLayout.LayoutParams p = new LayoutParams(
-//                LayoutParams.MATCH_PARENT,
-//                LayoutParams.MATCH_PARENT
-//        );
         AbsListView.LayoutParams p = new AbsListView.LayoutParams(
                 LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT

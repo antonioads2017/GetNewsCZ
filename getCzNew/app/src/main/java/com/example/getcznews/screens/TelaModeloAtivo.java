@@ -18,8 +18,9 @@ import com.example.getcznews.services.UsuarioService;
 /***********************
  * TelaModeloAtivo
  * Esta classe é uma extenção de TelaPadrão.
- * Todas as telas que derivam de dela só poderão permanecer
- * caso  esteja Logado.
+ * Todas as telas que derem dela só poderão permanecer
+ * caso  estejam Logado, caso contrário,
+ * serão redirecionadas para a tela de Login
  *************************/
 
 public abstract class TelaModeloAtivo extends TelaPadrao{
@@ -31,7 +32,12 @@ public abstract class TelaModeloAtivo extends TelaPadrao{
     private final int ITEM_INDEX_DESATIVAR_PERFIL    = 1;
     private final int ITEM_INDEX_SAIR                = 2;
 
-    //Construção da classe atribindo o valor 'true' para soLogado
+    /**********************************************
+     * No contrutor desta classe o valor soLogado
+     * será atribuído com 'true' ou seja,
+     * Só é permitido a permanência nesta tela
+     * caso o usuário esteja logado
+     */
     protected TelaModeloAtivo() {
         super(true);
     }
@@ -56,13 +62,16 @@ public abstract class TelaModeloAtivo extends TelaPadrao{
         ab.setDisplayHomeAsUpEnabled(true);
     }
 
+    /*********************************************
+     * Método de criação do menu de opções
+     * Ítens do menu:
+     *  - ITEM_INDEX_MODIFICAR_DADOS
+     *  - ITEM_INDEX_DESATIVAR_PERFIL
+     *  - ITEM_INDEX_SAIR
+     **********************************************/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        /*******************
-         * Criação do Menu
-         *******************/
-
         //Menu Modificar Dados
         MenuItem miModificarDados = menu.add(
                 0,
@@ -90,23 +99,30 @@ public abstract class TelaModeloAtivo extends TelaPadrao{
         return true;
     }
 
+    /*******************************************************************
+     * Método que faz o tratamento após algum item do menu seja clicado
+     *******************************************************************/
     @Override
     public boolean onMenuItemSelected(int panel, MenuItem item){
         switch (item.getItemId()){
+            //Campo voltar lateral esqueda do acvitveBar
             case android.R.id.home:
                 startActivity(
                         new Intent(this, TelaPrincipal.class)
                 );
                 Toast.makeText(this, "Home",Toast.LENGTH_SHORT).show();
                 break;
+            //Item Menu modificar dados
             case ITEM_INDEX_MODIFICAR_DADOS:
                 Toast.makeText(this, "Modificar Dados",Toast.LENGTH_SHORT).show();
                 onEditarPerfil();
                 break;
+            // Item desativar perfil
             case ITEM_INDEX_DESATIVAR_PERFIL:
                 Toast.makeText(this, "Desativar Perfil",Toast.LENGTH_SHORT).show();
                 onDesativarPerfil();
                 break;
+            //Item fazer logoff do aplicativo
             case ITEM_INDEX_SAIR:
                 Toast.makeText(this, "Sair",Toast.LENGTH_SHORT).show();
                 onLogoff();
@@ -115,6 +131,10 @@ public abstract class TelaModeloAtivo extends TelaPadrao{
         return true;
     }
 
+    /*************************************
+     * Método chamado ao clicar no item:
+     *  - Desativar Perfil
+     ************************************/
     private void onDesativarPerfil() {
 
         new AlertDialog.Builder(this)
@@ -132,13 +152,20 @@ public abstract class TelaModeloAtivo extends TelaPadrao{
                 .show();
     }
 
-
+    /*************************************
+     * Método chamado ao clicar no item:
+     *  - Editar Perfil
+     ************************************/
     private  void onEditarPerfil(){
         startActivity(
                 new Intent(this, TelaEditarPerfil.class)
         );
     }
 
+    /*************************************
+     * Método chamado ao clicar no item:
+     *  - Sair
+     ************************************/
     private void onLogoff(){
         usuarioService.sair();
         redirecionar();

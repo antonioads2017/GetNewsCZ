@@ -8,6 +8,11 @@ import com.example.getcznews.domain.Noticia;
 
 import java.util.List;
 
+/***************************************
+ * Classe de Serviço da notícia.
+ * Nesta classe é aplicada a regra de
+ * negócio das notícias
+ *****************************************/
 public class NoticiaService {
 
     private NoticiaDAO noticiaDAO;
@@ -16,10 +21,20 @@ public class NoticiaService {
         noticiaDAO = new NoticiaDAOImpl(context);
     }
 
+    /*****************************************
+     * Método que retorna a lista de todas
+     * as notícias
+     *****************************************/
     public List<Noticia> getListaNoticias(){
         return noticiaDAO.listar();
     }
 
+    /***************************************
+     * Método que retorna uma notícia específica
+     * a partir do identificador da notícia.
+     * Caso o identificado seja inválido
+     * será retornada uma notícia vazia.
+     ***************************************/
     public Noticia getNoticiaId(long id){
         Noticia noticia = noticiaDAO.buscar(id);
 

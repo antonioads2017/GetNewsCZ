@@ -23,12 +23,7 @@ public class TelaEditarPerfil extends  TelaModeloAtivo {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //TITULO
-        TextView tvTitulo = new TextView(getRoot().getContext());
-        tvTitulo.setText("Editar Perfil");
-        tvTitulo.setTextSize(30);
-        tvTitulo.setGravity(Gravity.CENTER_HORIZONTAL);
-        getRoot().addView(tvTitulo);
+        criarTitulo();
 
         //NOME
         final TextEdit tvNome = new TextEdit(this,getRoot(),"Nome");
@@ -52,7 +47,7 @@ public class TelaEditarPerfil extends  TelaModeloAtivo {
                 )
         );
         getRoot().addView(llBotoes);
-
+        //BOTÃO PARA EDITAR O USUÁRIO
         Button btCadastrar = new Button(llBotoes.getContext());
         btCadastrar.setText("Editar");
         btCadastrar.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +63,21 @@ public class TelaEditarPerfil extends  TelaModeloAtivo {
         llBotoes.addView(btCadastrar);
     }
 
+    /**************************************
+     * Método para criar o título da tela
+     ***************************************/
+    private void criarTitulo() {
+        //TITULO
+        TextView tvTitulo = new TextView(getRoot().getContext());
+        tvTitulo.setText("Editar Perfil");
+        tvTitulo.setTextSize(30);
+        tvTitulo.setGravity(Gravity.CENTER_HORIZONTAL);
+        getRoot().addView(tvTitulo);
+    }
 
+    /*****************************************************************
+     * Método para editar o usuário utilizando a classe usuarioService
+     *****************************************************************/
     private void editarUsuario(String nome, String login, String senha){
 
        if (usuarioService.editarUsuario(nome,login,senha)) {

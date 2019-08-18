@@ -3,6 +3,9 @@ package com.example.getcznews.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+/************************
+ * Classe no objeto Usuário
+ ************************/
 public class Usuario implements Serializable {
 
     private long id;
