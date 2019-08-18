@@ -74,6 +74,7 @@ public class TelaPrincipal extends TelaModeloAtivo {
 
     }
 
+    //Converte a data e hora atual para String
     private String getDataComoString(){
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM HH:mm");
         Date data = new Date();
@@ -97,9 +98,6 @@ public class TelaPrincipal extends TelaModeloAtivo {
     }
 
     private void onClickItem(long id){
-
-        Toast.makeText(this, "Clicou "+id+" !!!!!!!!!!", LENGTH_SHORT).show();
-
         Intent intent = new Intent(this, TelaVerNoticia.class);
         intent.putExtra(TelaVerNoticia.EXTRA_MESSAGE,id);
         startActivity(intent);

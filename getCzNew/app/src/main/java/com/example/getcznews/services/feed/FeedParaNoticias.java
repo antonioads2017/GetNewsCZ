@@ -1,5 +1,7 @@
 package com.example.getcznews.services.feed;
 
+import android.util.Log;
+
 import com.example.getcznews.dao.NoticiaDAO;
 import com.example.getcznews.domain.Noticia;
 
@@ -11,28 +13,27 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public abstract class FeedParaNoticias {
+import javax.net.ssl.HttpsURLConnection;
 
+public abstract class FeedParaNoticias {
     private List<Noticia> noticias;
     private String urlFeed;
 
     protected abstract List<Noticia> feedToNoticia(String xml);
 
     public FeedParaNoticias(NoticiaDAO noticiaDAO, String urlFeed) {
-
         this.urlFeed = urlFeed;
 
         String xml = baixarFeed();
         if(xml == null)
             return;
-
+        Log.e("XML",xml);
         noticias = feedToNoticia(xml);
-
         //noticiaDAO.limpar();
-
         for (Noticia noticia: noticias) {
             noticiaDAO.salvar(noticia);
         }
+
     }
 
     private String baixarFeed(){
