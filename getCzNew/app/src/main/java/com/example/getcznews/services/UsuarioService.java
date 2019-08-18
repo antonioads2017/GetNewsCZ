@@ -59,6 +59,29 @@ public class UsuarioService {
         return true;
     }
 
+    public boolean editarUsuario(String nome, String login, String senha){
+        if (nome == null || senha == null || login == null)
+            return false;
+        if (nome.length() < TAM_NOME || senha.length() < TAM_SENHA || login.length() < TAM_LOGIN)
+            return false;
+
+        Usuario usuario = usuarioDAO.buscarPeloLogin(login);
+
+        if( usuario != null && usuario.getId() != getUsuarioLogado().getId()){
+            return false;
+        }
+
+        usuario = getUsuarioLogado();
+        usuario.setNome(nome);
+        usuario.setLogin(login);
+        usuario.setSenha(senha);
+
+        usuarioDAO.editar(usuario);
+
+        return true;
+
+    }
+
     public void desativarPerfil(){
         if (!isLogado())
             return;

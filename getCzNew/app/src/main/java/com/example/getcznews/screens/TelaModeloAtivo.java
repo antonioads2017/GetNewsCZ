@@ -1,7 +1,10 @@
 package com.example.getcznews.screens;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.opengl.EGLExt;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Menu;
@@ -98,6 +101,7 @@ public abstract class TelaModeloAtivo extends TelaPadrao{
                 break;
             case ITEM_INDEX_MODIFICAR_DADOS:
                 Toast.makeText(this, "Modificar Dados",Toast.LENGTH_SHORT).show();
+                onEditarPerfil();
                 break;
             case ITEM_INDEX_DESATIVAR_PERFIL:
                 Toast.makeText(this, "Desativar Perfil",Toast.LENGTH_SHORT).show();
@@ -112,10 +116,28 @@ public abstract class TelaModeloAtivo extends TelaPadrao{
     }
 
     private void onDesativarPerfil() {
-        usuarioService.desativarPerfil();
-        redirecionar();
+
+        new AlertDialog.Builder(this)
+            .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Desativar Usuário")
+                .setMessage("Deseja desativar o usuário:\n " + usuarioService.getUsuarioLogado().getNome())
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        usuarioService.desativarPerfil();
+                        redirecionar();
+                    }
+                })
+                .setNegativeButton("Não",null)
+                .show();
     }
 
+
+    private  void onEditarPerfil(){
+        startActivity(
+                new Intent(this, TelaEditarPerfil.class)
+        );
+    }
 
     private void onLogoff(){
         usuarioService.sair();

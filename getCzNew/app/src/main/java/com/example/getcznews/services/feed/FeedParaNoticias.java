@@ -13,8 +13,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-import javax.net.ssl.HttpsURLConnection;
-
 public abstract class FeedParaNoticias {
     private List<Noticia> noticias;
     private String urlFeed;
