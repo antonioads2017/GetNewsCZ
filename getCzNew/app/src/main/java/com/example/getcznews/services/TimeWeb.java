@@ -46,7 +46,7 @@ public class TimeWeb extends TimerTask{
 
     private static void atualizarNoticias(Context context){
         NoticiaDAO noticiaDAO = new NoticiaDAOImpl(context);
-        new FeedParaNoticiasDiarioSertao(noticiaDAO, "http://uirauna.net/feed/");
+        new FeedParaNoticiasDiarioSertao(noticiaDAO, "http://www.coisasdecajazeiras.com.br/feed/");
 
     }
 
