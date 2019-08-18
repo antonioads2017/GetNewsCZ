@@ -19,7 +19,7 @@ public abstract class FeedParaNoticias {
     private List<Noticia> noticias;
     private String urlFeed;
 
-    protected abstract List<Noticia> feedToNoticia(String xml);
+    protected abstract List<Noticia> convertFeedToNoticias(String xml);
 
     public FeedParaNoticias(NoticiaDAO noticiaDAO, String urlFeed) {
         this.urlFeed = urlFeed;
@@ -28,7 +28,7 @@ public abstract class FeedParaNoticias {
         if(xml == null)
             return;
         Log.e("XML",xml);
-        noticias = feedToNoticia(xml);
+        noticias = convertFeedToNoticias(xml);
         //noticiaDAO.limpar();
         for (Noticia noticia: noticias) {
             noticiaDAO.salvar(noticia);

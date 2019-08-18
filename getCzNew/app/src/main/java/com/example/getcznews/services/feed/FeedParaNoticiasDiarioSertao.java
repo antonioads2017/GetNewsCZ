@@ -15,7 +15,7 @@ public class FeedParaNoticiasDiarioSertao extends FeedParaNoticias {
     }
 
     @Override
-    protected List<Noticia> feedToNoticia(String xml) {
+    protected List<Noticia> convertFeedToNoticias(String xml) {
         List<Noticia> noticias = new ArrayList<>();
 
         Log.e("XML",xml);
