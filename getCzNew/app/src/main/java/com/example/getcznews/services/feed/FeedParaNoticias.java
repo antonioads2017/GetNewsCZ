@@ -32,10 +32,7 @@ public abstract class FeedParaNoticias {
     public FeedParaNoticias(NoticiaDAO noticiaDAO, String urlFeed) {
         this.urlFeed = urlFeed;
 
-        String xml = baixarFeed();
-        if(xml == null)
-            return;
-        Log.e("XML",xml);
+
         //noticiaDAO.limpar();
         for (Noticia noticia: noticias) {
             noticiaDAO.salvar(noticia);
@@ -43,46 +40,15 @@ public abstract class FeedParaNoticias {
 
     }
 
-    private String baixarFeed(){
-        HttpURLConnection urlConnection = null;
-        BufferedReader reader = null;
-        try{
-
-            URL url = new URL(urlFeed);
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
-            urlConnection.connect();
-
-            InputStream inputStream = urlConnection.getInputStream();
-
-            reader = new BufferedReader(new InputStreamReader(inputStream));
-
-            String linha;
-
-            StringBuffer buffer = new StringBuffer();
-            while((linha = reader.readLine()) != null){
-                buffer.append(linha);
-                buffer.append("\n");
-            }
-
-            return  buffer.toString();
-
-        }catch (Exception e) {
-            e.printStackTrace();
-            if (urlConnection != null){
-                urlConnection.disconnect();
-            }
-
-            if(reader != null){
-                try{
-                    reader.close();
-                }catch (IOException e1){
-                    e1.printStackTrace();
-                }
-            }
+    public InputStream getInputStream(URL url) {
+        try
+        {
+            return url.openConnection().getInputStream();
         }
-        return null;
-
+        catch (IOException e)
+        {
+            return null;
+        }
     }
 
     public List<Noticia> getNoticias() {

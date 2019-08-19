@@ -26,20 +26,6 @@ public class FeedParaNoticiasValeDoPianco extends FeedParaNoticias {
         new ProcessInBackground().execute();
     }
 
-
-    public InputStream getInputStream(URL url)
-    {
-        try
-        {
-            //openConnection() returns instance that represents a connection to the remote object referred to by the URL
-            //getInputStream() returns a stream that reads from the open connection
-            return url.openConnection().getInputStream();
-        }
-        catch (IOException e)
-        {
-            return null;
-        }
-    }
     public class ProcessInBackground extends AsyncTask<Integer,Void,String> {
 
 
@@ -72,6 +58,7 @@ public class FeedParaNoticiasValeDoPianco extends FeedParaNoticias {
                                     noticia.setTitulo(xpp.nextText());
                             }
                         }else if(xpp.getName().equalsIgnoreCase("link")){
+
                             fonte.setFeed("Vale do Piancó Noticias");
                             fonte.setFeed("");
                             fonte.setSite(xpp.nextText());
