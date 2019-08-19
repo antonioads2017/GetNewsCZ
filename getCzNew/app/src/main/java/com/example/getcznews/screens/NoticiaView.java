@@ -1,4 +1,4 @@
-package com.example.getcznews.views;
+package com.example.getcznews.screens;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -14,11 +14,15 @@ import com.example.getcznews.R;
 import com.example.getcznews.domain.Noticia;
 import com.squareup.picasso.Picasso;
 
+/*********************************
+ * Classe responsável pela apresentação
+ * da notícia no listView da TelaPrincipal
+ ******************************************/
 public class NoticiaView extends LinearLayout {
 
     private final int TAM_TEXTO        = 200;
-    private final int TAM_TITULO       = 12;
-    private final int TAM_LINK         = 32;
+    private final int TAM_TITULO       = 120;
+    private final int TAM_FONTE         = 32;
 
     private final int PADDING_SIZE     = 30;
 
@@ -28,6 +32,9 @@ public class NoticiaView extends LinearLayout {
     private Noticia noticia;
     private ImageView imageView;
 
+    /***************************************************************
+     * Classe que apresenta as noticias no listView da TelaPrincipal
+     ****************************************************************/
     public NoticiaView(Context context, Noticia noticia) {
         super(context);
         this.noticia = noticia;
@@ -35,10 +42,6 @@ public class NoticiaView extends LinearLayout {
     }
 
     private void init(){
-//        LinearLayout.LayoutParams p = new LayoutParams(
-//                LayoutParams.MATCH_PARENT,
-//                LayoutParams.MATCH_PARENT
-//        );
         AbsListView.LayoutParams p = new AbsListView.LayoutParams(
                 LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT
@@ -101,7 +104,7 @@ public class NoticiaView extends LinearLayout {
      * Criando o link da origem da notícia
      *************************************************/
     private void criarOrigem(LinearLayout linearLayout){
-        String texto = "Origem: <"+subTexto(noticia.getLink(),TAM_LINK)+">";
+        String texto = "Origem: <"+subTexto(noticia.getFonte().getNome(),TAM_FONTE)+">";
         TextView origem = criarTextView(
                 texto,
                 linearLayout);

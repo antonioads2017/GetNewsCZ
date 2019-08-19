@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.view.Gravity;
 import android.view.View;
@@ -13,36 +12,31 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.getcznews.ButtonBox;
 import com.example.getcznews.TextEdit;
-import com.example.getcznews.services.UsuarioService;
+import com.example.getcznews.domain.Usuario;
 
-/*************************************************************
- * Classe responsável pela tela de cadastro do usuário
- ************************************************************/
-public class TelaCadastro extends TelaModeloInativo {
+public class TelaEditarPerfil extends  TelaModeloAtivo {
 
-    public TelaCadastro(){}
+    public TelaEditarPerfil() {}
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
         criarTitulo();
-        criarTexto();
-
 
         //NOME
         final TextEdit tvNome = new TextEdit(this,getRoot(),"Nome");
+        tvNome.getEt().setText(usuarioService.getUsuarioLogado().getNome());
 
         //LOGIN
         final TextEdit tvLogin = new TextEdit(this,getRoot(),"Login");
+        tvLogin.getEt().setText(usuarioService.getUsuarioLogado().getLogin());
 
         //SENHA
         final TextEdit tvSenha = new TextEdit(this,getRoot(),"Senha");
         tvSenha.getEt().setTransformationMethod(new PasswordTransformationMethod());
+        tvSenha.getEt().setText(usuarioService.getUsuarioLogado().getSenha());
 
         //LAYOUT DOS BOTÕES
         LinearLayout llBotoes = new LinearLayout(getRoot().getContext());
@@ -52,63 +46,49 @@ public class TelaCadastro extends TelaModeloInativo {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 )
         );
-
         getRoot().addView(llBotoes);
-        //BOTAO PARA REALIZA O CADASTRO DO USUÁRIO
+        //BOTÃO PARA EDITAR O USUÁRIO
         Button btCadastrar = new Button(llBotoes.getContext());
-        btCadastrar.setText("Cadastrar");
+        btCadastrar.setText("Editar");
         btCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cadastrarUsuario(
+                editarUsuario(
                         tvNome.getValue(),
                         tvLogin.getValue(),
                         tvSenha.getValue());
             }
         });
 
-
         llBotoes.addView(btCadastrar);
     }
 
-
-    /***************************************
-     * Método para criar o título da página
-     ****************************************/
+    /**************************************
+     * Método para criar o título da tela
+     ***************************************/
     private void criarTitulo() {
         //TITULO
         TextView tvTitulo = new TextView(getRoot().getContext());
-        tvTitulo.setText("GetNews");
-        tvTitulo.setTextSize(40);
+        tvTitulo.setText("Editar Perfil");
+        tvTitulo.setTextSize(30);
         tvTitulo.setGravity(Gravity.CENTER_HORIZONTAL);
         getRoot().addView(tvTitulo);
     }
 
-    /*****************************************
-     * Método para criar o texto da página
-     ******************************************/
-    private void criarTexto() {
-        //CADASTRO
-        TextView tvCadastro = new TextView(getRoot().getContext());
-        tvCadastro.setText("Cadastre-se");
-        tvCadastro.setGravity(Gravity.CENTER_HORIZONTAL);
-        getRoot().addView(tvCadastro);
-    }
+    /*****************************************************************
+     * Método para editar o usuário utilizando a classe usuarioService
+     *****************************************************************/
+    private void editarUsuario(String nome, String login, String senha){
 
-
-    /***************************************************************************
-     *Método que realiza o cadastro do usuário atraves da classe usuarioService
-     *****************************************************************************/
-    private void cadastrarUsuario(String nome, String login, String senha){
-
-        if (usuarioService.criarUsuario(nome,login,senha)) {
-            Toast.makeText(this, "Cadastro realizado com sucesso.", Toast.LENGTH_LONG).show();
+       if (usuarioService.editarUsuario(nome,login,senha)) {
+            Toast.makeText(this, "Edição do cadastro realizado com sucesso.", Toast.LENGTH_LONG).show();
             startActivity(
-                    new Intent(this, TelaLogin.class)
+                    new Intent(this, TelaPrincipal.class)
             );
         } else {
-            Toast.makeText(this, "Não foi possível realziar o cadastro.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Não foi possível realziar a edição do cadastro.", Toast.LENGTH_LONG).show();
         }
     }
+
 
 }

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.widget.LinearLayout;
 
 import com.example.getcznews.controler.Login;
+import com.example.getcznews.services.UsuarioService;
 
 /****************************************
  * TelaPadrao
@@ -26,6 +27,8 @@ import com.example.getcznews.controler.Login;
 
 public abstract class TelaPadrao  extends Activity {
 
+    protected UsuarioService usuarioService;
+
     //Variavel que atribui a caracteristica de permanencia na tela logado ou não
     protected boolean soLogado;
     //Variavel de Layout inicial de todas as telas
@@ -33,14 +36,30 @@ public abstract class TelaPadrao  extends Activity {
 
     /*************************************
      * Esta classe utiliza o Padrão de Projeto TEMPLATE METHOD
-     * onde a classe que instanciar deverá implementar este método.
+     * onde a classe que instanciar deverá implementar o método:
+     *
+     *   --> void redirecionar() <--
+     *
      * Esta classe abstract deverá direcionar
      * para a tela específica quando o usuário
      * não puder permanecer devido o seu estado
      * de login.
+     *
+     * Quando o usuário NÃO estiver logado só poderá
+     * permanecer nas telas cujo o atributo
+     * "soLogado" for 'false'
+     *
+     * Quando o usuário estiver logado só poderá
+     *      * permanecer nas telas cujo o atributo
+     *      * "soLogado" for 'true'
+     *
      **************************************/
     protected abstract void redirecionar();
 
+    /***************************************
+     * No construtor da classe filha o valor
+     * do "soLogado" será tribuído
+     ***************************************/
     public TelaPadrao(boolean soLogado) {
         this.soLogado = soLogado;
         root = null;
@@ -49,6 +68,9 @@ public abstract class TelaPadrao  extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        usuarioService = new UsuarioService(this);
+
         verificarLogin();
 
         root = new LinearLayout(this);
@@ -86,7 +108,7 @@ public abstract class TelaPadrao  extends Activity {
          *Classe Singleton que define o estado de login do usuário.
          * Retorna para a variável logado o estado de login atual
          **************************/
-        boolean logado = Login.getInstance().isLogado();
+        boolean logado = usuarioService.isLogado();
 
 
         /***************************
@@ -108,6 +130,11 @@ public abstract class TelaPadrao  extends Activity {
             redirecionar(); //Método abstract
     }
 
+    /**********************************************
+     * Todas as classe que herdarem de TelaPadrão
+     * já teram o root implementado e poderam
+     * acessa-lo por este método.
+     *********************************************/
     public LinearLayout getRoot() {
         return root;
     }
