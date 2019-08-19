@@ -3,14 +3,10 @@ package com.example.getcznews.services;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.getcznews.dao.FonteDAO;
-import com.example.getcznews.dao.FonteDAOImpl;
 import com.example.getcznews.dao.NoticiaDAO;
 import com.example.getcznews.dao.NoticiaDAOImpl;
-import com.example.getcznews.domain.Fonte;
-import com.example.getcznews.services.feed.FeedParaNoticiasDiarioSertao;
+import com.example.getcznews.services.feed.FeedParaNoticiasValeDoPianco;
 
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -71,7 +67,7 @@ public class TimeWeb extends TimerTask{
      *******************************************/
     private static void atualizarNoticias(Context context){
         NoticiaDAO noticiaDAO = new NoticiaDAOImpl(context);
-        new FeedParaNoticiasDiarioSertao(noticiaDAO, "http://www.coisasdecajazeiras.com.br/feed/");
+        new FeedParaNoticiasValeDoPianco(noticiaDAO,"http://www.valedopianconoticias.com.br/noticias/index.rss");
 
         TimeView.run();
 
