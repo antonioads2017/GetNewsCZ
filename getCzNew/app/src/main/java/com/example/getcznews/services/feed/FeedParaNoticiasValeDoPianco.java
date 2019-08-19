@@ -61,7 +61,7 @@ public class FeedParaNoticiasValeDoPianco extends FeedParaNoticias {
 
                 Noticia noticia = new Noticia();
                 Fonte fonte = new Fonte();
-                noticia.setId(UUID.randomUUID().clockSequence());
+
 
                 while (eventType!=XmlPullParser.END_DOCUMENT){
                     if(eventType==XmlPullParser.START_TAG){
@@ -72,7 +72,6 @@ public class FeedParaNoticiasValeDoPianco extends FeedParaNoticias {
                                     noticia.setTitulo(xpp.nextText());
                             }
                         }else if(xpp.getName().equalsIgnoreCase("link")){
-                            fonte.setId(UUID.randomUUID().clockSequence());
                             fonte.setFeed("Vale do Piancó Noticias");
                             fonte.setFeed("");
                             fonte.setSite(xpp.nextText());
