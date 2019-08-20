@@ -82,7 +82,7 @@ public abstract class TelaPadrao  extends Activity {
                 )
         );
 
-        root.setBackgroundColor(Color.WHITE);
+        root.setBackgroundColor(Color.parseColor("#ebf2f2"));
         root.setOrientation(LinearLayout.VERTICAL);
         setContentView(root);
     }

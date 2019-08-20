@@ -1,23 +1,29 @@
 package com.example.getcznews.screens;
 
+
 import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.method.PasswordTransformationMethod;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.getcznews.R;
 import com.example.getcznews.TextEdit;
 import com.example.getcznews.controler.Login;
 import com.example.getcznews.domain.Usuario;
 import com.example.getcznews.services.UsuarioService;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.lang.reflect.Array;
 
 /*******************************************************
@@ -27,8 +33,12 @@ import java.lang.reflect.Array;
  *******************************************************/
 public class TelaLogin extends TelaModeloInativo {
 
+
+
+
     private TextEdit teLogin;
     private TextEdit teSenha;
+
 
     public TelaLogin() {}
 
@@ -36,12 +46,14 @@ public class TelaLogin extends TelaModeloInativo {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         //Criando os textos
         criarTitulo();
         criarTexto();
         //Criando os campos
         criarEditLogin();
         criarEditSenha();
+
 
 
         //LAYOUT DOS BOTÕES
@@ -52,7 +64,9 @@ public class TelaLogin extends TelaModeloInativo {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 )
         );
+        llBotoes.setGravity(Gravity.CENTER_HORIZONTAL);
         getRoot().addView(llBotoes);
+
 
         //BOTÃO LOGAR
         Button btLogar = new Button(llBotoes.getContext());
@@ -73,7 +87,8 @@ public class TelaLogin extends TelaModeloInativo {
         Button btCadastro = new Button(llBotoes.getContext());
         btCadastro.setText("Cadastrar");
         llBotoes.addView(btCadastro);
-
+        btLogar.setBackgroundColor(Color.parseColor("#67ebad"));
+    btLogar.setGravity(Gravity.CENTER_VERTICAL);
         btCadastro.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -82,6 +97,9 @@ public class TelaLogin extends TelaModeloInativo {
                     }
                 }
         );
+
+        btCadastro.setBackgroundColor(Color.parseColor("#67ebad"));
+        btCadastro.setGravity(Gravity.CENTER_VERTICAL);
     }
 
     /***********************************************
@@ -95,6 +113,7 @@ public class TelaLogin extends TelaModeloInativo {
         tvTitulo.setGravity(Gravity.CENTER_HORIZONTAL);
         getRoot().addView(tvTitulo);
     }
+
 
     /**************************************************
      * Método responsável pela crianção do texto da tela
@@ -151,6 +170,8 @@ public class TelaLogin extends TelaModeloInativo {
         }
 
     }
+//    Criar logo
+
 
     /*******************************************************
      * Método responsável por chamar a tela de cadastro
