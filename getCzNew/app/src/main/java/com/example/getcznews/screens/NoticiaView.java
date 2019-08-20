@@ -85,6 +85,7 @@ public class NoticiaView extends LinearLayout {
                 linearLayout);
         titulo.setPaintFlags(Paint.FAKE_BOLD_TEXT_FLAG);
         titulo.setTextSize(14);
+        titulo.setTextColor(Color.parseColor("#1c9e73"));
     }
 
     /****************************************
@@ -110,6 +111,7 @@ public class NoticiaView extends LinearLayout {
                 linearLayout);
         origem.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
         origem.setTextSize(10);
+        origem.setTextColor(Color.parseColor("#2ab587"));
     }
 
     /*******************************************
