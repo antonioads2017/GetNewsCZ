@@ -15,6 +15,7 @@ import java.util.List;
 public class UsuarioDAOImpl implements UsuarioDAO {
 
     private SQLiteDatabase dataBase;
+    private Context context;
 
     private String[] colunas;
 
@@ -27,9 +28,24 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     }
 
     public UsuarioDAOImpl(Context context) {
-        dataBase = new DBCore(context).getWritableDatabase();
+        this.context = context;
+//        dataBase = new DBCore(context).getWritableDatabase();
         colunas = new String[]{"_id","nome","login", "senha"};
     }
+
+    private SQLiteDatabase abrir(){
+        if (dataBase == null)
+            dataBase = new DBCore(context).getWritableDatabase();
+        return dataBase;
+    }
+
+    private void fechar(){
+        if (dataBase != null) {
+            dataBase.close();
+            dataBase = null;
+        }
+    }
+
 
     @Override
     public void salvar(Usuario object) {
@@ -37,7 +53,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         valores.put("nome", object.getNome());
         valores.put("login", object.getLogin());
         valores.put("senha", object.getSenha());
-        dataBase.insert("usuario",null, valores);
+        abrir().insert("usuario",null, valores);
+        fechar();
     }
 
     @Override
@@ -46,25 +63,27 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         valores.put("nome",object.getNome());
         valores.put("login",object.getLogin());
         valores.put("senha",object.getSenha());
-        dataBase.update(
+        abrir().update(
                 "usuario",
                 valores,
                 "_id = ?",
                 new String[]{""+object.getId()});
+        fechar();
     }
 
     @Override
     public void remover(Usuario object) {
-        dataBase.delete(
+        abrir().delete(
                 "usuario",
                 "_id=?",
                 new String[]{""+object.getId()});
+        fechar();
     }
 
     @Override
     public List<Usuario> listar() {
         List<Usuario> usuarios = new ArrayList<>();
-        Cursor cursor = dataBase
+        Cursor cursor = abrir()
                 .query(
                         "usuario",
                         colunas,
@@ -79,13 +98,14 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 usuarios.add(lerUsuarioDaTebela(cursor));
             } while (cursor.moveToNext());
         }
+        fechar();
         return usuarios;
 
     }
 
     @Override
     public Usuario buscar(Object key) {
-        Cursor cursor = dataBase
+        Cursor cursor = abrir()
                 .query(
                         "usuario",
                         colunas,
@@ -98,13 +118,16 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             return new Usuario();
         cursor.moveToFirst();
 
-        return lerUsuarioDaTebela(cursor);
+        Usuario usuario = lerUsuarioDaTebela(cursor);
+        fechar();
+
+        return usuario;
 
     }
 
     @Override
     public Usuario buscarPeloLogin(String login) {
-        Cursor cursor = dataBase
+        Cursor cursor = abrir()
                 .query(
                         "usuario",
                         colunas,
@@ -117,6 +140,9 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             return null;
         cursor.moveToFirst();
 
-        return lerUsuarioDaTebela(cursor);
+        Usuario usuario = lerUsuarioDaTebela(cursor);
+        fechar();
+
+        return usuario;
     }
 }

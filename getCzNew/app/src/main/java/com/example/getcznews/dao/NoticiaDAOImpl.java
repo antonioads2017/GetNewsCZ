@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.strictmode.SqliteObjectLeakedViolation;
 
 import com.example.getcznews.database.DBCore;
 import com.example.getcznews.domain.Fonte;
@@ -15,6 +16,7 @@ import java.util.List;
 public class NoticiaDAOImpl implements NoticiaDAO {
 
 
+    private Context context;
     private SQLiteDatabase dataBase;
     private FonteDAO fonteDAO;
 
@@ -36,7 +38,8 @@ public class NoticiaDAOImpl implements NoticiaDAO {
     }
 
     public NoticiaDAOImpl(Context context) {
-        dataBase = new DBCore(context).getWritableDatabase();
+        this.context = context;
+//
         fonteDAO = new FonteDAOImpl(context);
         colunas = new String[]{
                 "_id",
@@ -47,6 +50,19 @@ public class NoticiaDAOImpl implements NoticiaDAO {
                 "visualizada"};
     }
 
+    private SQLiteDatabase abrir(){
+        if(dataBase == null)
+            dataBase = new DBCore(context).getWritableDatabase();
+        return dataBase;
+    }
+
+    private void fechar(){
+        if(dataBase != null){
+            dataBase.close();
+            dataBase = null;
+        }
+    }
+
     @Override
     public void salvar(Noticia object) {
         ContentValues valores = new ContentValues();
@@ -55,7 +71,8 @@ public class NoticiaDAOImpl implements NoticiaDAO {
         valores.put("texto",object.getTexto());
         valores.put("urlimage",object.getUrlImage());
         valores.put("visualizada",object.isVisualizada()?1:0);
-        dataBase.insert("noticia",null,valores);
+        abrir().insert("noticia",null,valores);
+        fechar();
     }
 
     @Override
@@ -66,25 +83,27 @@ public class NoticiaDAOImpl implements NoticiaDAO {
         valores.put("texto",object.getTexto());
         valores.put("urlimage",object.getUrlImage());
         valores.put("visualizada",object.isVisualizada()?1:0);
-        dataBase.update(
+        abrir().update(
                 "noticia",
                 valores,
                 "_id = ?",
                 new String[]{""+object.getId()});
+        fechar();
     }
 
     @Override
     public void remover(Noticia object) {
-        dataBase.delete(
+        abrir().delete(
                 "noticia",
                 "_id = ?",
                 new String[]{""+object.getId()});
+        fechar();
     }
 
     @Override
     public List<Noticia> listar() {
         List<Noticia> noticias = new ArrayList<>();
-        Cursor cursor = dataBase
+        Cursor cursor = abrir()
                 .query(
                         "noticia",
                         colunas,
@@ -99,12 +118,13 @@ public class NoticiaDAOImpl implements NoticiaDAO {
                 noticias.add(lerNoticiaDaTabela(cursor));
             }while(cursor.moveToNext());
         }
+        fechar();
         return noticias;
     }
 
     @Override
     public Noticia buscar(Object key) {
-        Cursor cursor = dataBase
+        Cursor cursor = abrir()
                 .query(
                         "noticia",
                         colunas,
@@ -116,20 +136,23 @@ public class NoticiaDAOImpl implements NoticiaDAO {
         if (cursor.getCount() == 0)
             return null;
         cursor.moveToFirst();
-
-        return lerNoticiaDaTabela(cursor);
+        Noticia noticia = lerNoticiaDaTabela(cursor);
+        fechar();
+        return noticia;
     }
 
     @Override
     public void excluirVisualizada() {
-        dataBase.delete(
+        abrir().delete(
                 "noticia",
                 "visualizada = ?",
                 new String[]{"1"});
+        fechar();
     }
 
     @Override
     public void limpar() {
-        dataBase.delete("noticia",null,null);
+        abrir().delete("noticia",null,null);
+        fechar();
     }
 }
