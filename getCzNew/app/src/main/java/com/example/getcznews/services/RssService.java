@@ -30,7 +30,7 @@ public class RssService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("RssService","INICIANDO RSS SERVICE");
         timeWeb = new TimeWeb();
-        TimeWeb.init(6000);
+        TimeWeb.init(60000);
 
         Log.e("Services","onStartCommand");
 
