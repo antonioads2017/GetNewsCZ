@@ -14,6 +14,7 @@ import java.util.List;
 public class FonteDAOImpl implements FonteDAO {
 
 
+    private Context context;
     private SQLiteDatabase dataBase;
 
     private String[] colunas;
@@ -27,12 +28,26 @@ public class FonteDAOImpl implements FonteDAO {
     }
 
     public FonteDAOImpl(Context context) {
-        dataBase = new DBCore(context).getWritableDatabase();
+        this.context = context;
+//        dataBase = new DBCore(context).getWritableDatabase();
         colunas = new String[]{
                 "_id",
                 "nome",
                 "site",
                 "feed"};
+    }
+
+    private SQLiteDatabase abrir(){
+        if(dataBase == null)
+            dataBase = new DBCore(context).getWritableDatabase();
+        return dataBase;
+    }
+
+    private void fechar(){
+        if(dataBase != null) {
+            dataBase.close();
+            dataBase = null;
+        }
     }
 
     @Override
@@ -41,7 +56,8 @@ public class FonteDAOImpl implements FonteDAO {
         valores.put("nome",object.getNome());
         valores.put("site",object.getSite());
         valores.put("feed",object.getFeed());
-        dataBase.insert("feed",null,valores);
+        abrir().insert("feed",null,valores);
+        fechar();
     }
 
     @Override
@@ -50,25 +66,27 @@ public class FonteDAOImpl implements FonteDAO {
         valores.put("nome",object.getNome());
         valores.put("site",object.getSite());
         valores.put("feed",object.getFeed());
-        dataBase.update(
+        abrir().update(
                 "fonte",
                 valores,
                 "_id = ?",
                 new String[]{""+object.getId()});
+        fechar();
     }
 
     @Override
     public void remover(Fonte object) {
-        dataBase.delete(
+        abrir().delete(
                 "fonte",
                 "_id = ?",
                 new String[]{""+object.getId()});
+        fechar();
     }
 
     @Override
     public List<Fonte> listar() {
         List<Fonte> fontes = new ArrayList<>();
-        Cursor cursor = dataBase
+        Cursor cursor = abrir()
                 .query(
                         "fonte",
                         colunas,
@@ -83,12 +101,13 @@ public class FonteDAOImpl implements FonteDAO {
                 fontes.add(lerFonteDaTabela(cursor));
             }while(cursor.moveToNext());
         }
+        fechar();
         return fontes;
     }
 
     @Override
     public Fonte buscar(Object key) {
-        Cursor cursor = dataBase
+        Cursor cursor = abrir()
                 .query(
                         "fonte",
                         colunas,
@@ -100,6 +119,8 @@ public class FonteDAOImpl implements FonteDAO {
         if (cursor.getCount() == 0)
             return null;
         cursor.moveToFirst();
-        return lerFonteDaTabela(cursor);
+        Fonte fonte = lerFonteDaTabela(cursor);
+        fechar();
+        return fonte;
     }
 }

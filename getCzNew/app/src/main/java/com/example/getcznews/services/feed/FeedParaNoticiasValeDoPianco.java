@@ -2,6 +2,7 @@ package com.example.getcznews.services.feed;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.getcznews.MainActivity;
 import com.example.getcznews.dao.NoticiaDAO;
@@ -23,65 +24,59 @@ public class FeedParaNoticiasValeDoPianco extends FeedParaNoticias {
 
     public FeedParaNoticiasValeDoPianco(NoticiaDAO noticiaDAO, String urlFeed) {
         super(noticiaDAO, urlFeed);
-        new ProcessInBackground().execute();
     }
 
-    public class ProcessInBackground extends AsyncTask<Integer,Void,Exception> {
+    @Override
+    protected void xmlParaNoticias(XmlPullParser xpp) {
+        try {
 
+            Fonte fonte = new Fonte();
+            fonte.setId(1);
+            fonte.setFeed("Vale do Piancó Noticias");
 
-        Exception exception = null;
+            Noticia noticia = null;
 
+            boolean insiderItem = false;
 
-        @Override
-        protected Exception doInBackground(Integer... integers) {
+            int eventType = xpp.getEventType();
 
-            try{
-                URL url = new URL(getUrlFeed());
-                XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-                factory.setNamespaceAware(false);
-                XmlPullParser xpp = factory.newPullParser();
-                xpp.setInput(getInputStream(url),"UTF_8");
-                boolean insiderItem = false;
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                noticia = null;
+                if (eventType == XmlPullParser.START_TAG) {
 
-                int eventType = xpp.getEventType();
+                    noticia = new Noticia(
+                            "Título",
+                            "Texto",
+                            "https://maladeaventuras.com/wp-content/uploads/2018/12/mockup-celular-e1544448308875-750x400.jpg",
+                            fonte);
 
-                Noticia noticia = new Noticia();
-                Fonte fonte = new Fonte();
-
-
-                while (eventType!=XmlPullParser.END_DOCUMENT){
-                    if(eventType==XmlPullParser.START_TAG){
-                        if(xpp.getName().equalsIgnoreCase("item")){
-                            insiderItem=true;
-                        }else if(xpp.getName().equalsIgnoreCase("title")){
-                            if(insiderItem){
-                                    noticia.setTitulo(xpp.nextText());
-                            }
-                        }else if(xpp.getName().equalsIgnoreCase("link")){
-
-                            fonte.setFeed("Vale do Piancó Noticias");
-                            fonte.setSite(xpp.nextText());
-                            noticia.setFonte(fonte);
-                        }else if(xpp.getName().equalsIgnoreCase("description")){
-                            noticia.setTexto(xpp.nextText());
+                    if (xpp.getName().equalsIgnoreCase("item")) {
+                        insiderItem = true;
+                    } else if (xpp.getName().equalsIgnoreCase("title")) {
+                        if (insiderItem) {
+                            noticia.setTitulo(xpp.nextText());
                         }
-                    }else if(eventType==XmlPullParser.END_TAG && xpp.getName().equalsIgnoreCase("item")){
-                        insiderItem=false;
+                    } else if (xpp.getName().equalsIgnoreCase("link")) {
+
+
+                        fonte.setSite(xpp.nextText());
+                        noticia.setFonte(fonte);
+                    } else if (xpp.getName().equalsIgnoreCase("description")) {
+                        noticia.setTexto(xpp.nextText());
                     }
+                } else if (eventType == XmlPullParser.END_TAG && xpp.getName().equalsIgnoreCase("item")) {
+                    insiderItem = false;
+                }
+                if (noticia != null) {
+                    Log.e("Notícia",noticia.toString());
                     getNoticias().add(noticia);
-                    eventType=xpp.next();
-                    noticia = new Noticia();
-                    fonte = new Fonte();
                 }
 
-            }catch (MalformedURLException e){
-                exception=e;
-            }catch (XmlPullParserException e){
-                exception=e;
-            }catch (IOException ex){
-                exception=ex;
+                eventType = xpp.next();
+//                noticia = new Noticia();
+//                fonte = new Fonte();
             }
-            return exception;
+        }catch (Exception e) {
         }
 
     }

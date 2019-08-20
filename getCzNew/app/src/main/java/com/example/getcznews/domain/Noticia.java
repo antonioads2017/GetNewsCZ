@@ -26,6 +26,14 @@ public class Noticia implements Serializable {
         this.visualizada = visualizada;
     }
 
+    public Noticia(String titulo, String texto, String urlImage, Fonte fonte) {
+        this.titulo = titulo;
+        this.texto = texto;
+        this.urlImage = urlImage;
+        this.visualizada = false;
+        this.fonte = fonte;
+    }
+
     public long getId() {
         return id;
     }
@@ -85,5 +93,15 @@ public class Noticia implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Noticia{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", texto='" + texto + '\'' +
+                ", urlImage='" + urlImage + '\'' +
+                '}';
     }
 }
