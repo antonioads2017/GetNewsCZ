@@ -18,7 +18,6 @@ public class RssService extends Service {
     private static final Long TEMPO = 1000L;
     private TimeWeb timeWeb;
 
-
     public RssService() {
         super();
     }
@@ -35,7 +34,9 @@ public class RssService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d("RssService","INICIANDO RSS SERVICE");
         timeWeb = new TimeWeb();
+        TimeWeb.init(6000);
         return START_STICKY;
     }
 

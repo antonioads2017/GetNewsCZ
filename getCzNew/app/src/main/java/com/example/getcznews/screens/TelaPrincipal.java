@@ -1,5 +1,7 @@
 package com.example.getcznews.screens;
 
+import android.app.IntentService;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.example.getcznews.adapter.AdapterNoticiaPersonalizado;
 import com.example.getcznews.domain.Noticia;
 import com.example.getcznews.services.NoticiaService;
+import com.example.getcznews.services.RssService;
 import com.example.getcznews.services.TimeView;
 
 import java.text.SimpleDateFormat;
@@ -46,13 +49,16 @@ public class TelaPrincipal extends TelaModeloAtivo {
      * É informado o tempo entre as atualização através da variável
      * DELAY_TIME_WEB
      ****************************************************************/
-    static{ TimeWeb.init(DELAY_TIME_WEB); }
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         criarTitulo();
         criarListaNoticias();
+        Intent rssIntent = new Intent(this,RssService.class);
+        startService(rssIntent);
     }
 
     @Override

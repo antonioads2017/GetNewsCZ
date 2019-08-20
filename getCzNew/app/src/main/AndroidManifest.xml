@@ -12,9 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Holo.Light">
-        <service
-            android:name=".services.RssService"
-            android:exported="true"></service>
+
+        <service android:name=".services.RssService"/>
 
         <activity android:name=".MainActivity">
             <intent-filter>
