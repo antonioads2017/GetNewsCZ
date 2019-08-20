@@ -99,6 +99,7 @@ public class Noticia implements Serializable {
     public String toString() {
         return "Noticia{" +
                 "id=" + id +
+                ", fonte=" + fonte.getSite() +
                 ", titulo='" + titulo + '\'' +
                 ", texto='" + texto + '\'' +
                 ", urlImage='" + urlImage + '\'' +

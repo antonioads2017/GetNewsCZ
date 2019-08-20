@@ -1,6 +1,7 @@
 package com.example.getcznews.services.feed;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.getcznews.dao.NoticiaDAO;
 import com.example.getcznews.domain.Noticia;
@@ -18,10 +19,10 @@ public abstract class FeedParaNoticias {
     private List<Noticia> noticias;
 
 
-    protected abstract void xmlParaNoticias(XmlPullParser xpp);
+    protected  abstract void xmlParaNoticias(XmlPullParser xpp);
 
 
-    public class ProcessInBackground extends AsyncTask<Integer,Void,Exception> {
+    public class ProcessInBackground extends AsyncTask<Integer,Void,String> {
         private String urlFeed;
         private FeedParaNoticias feedParaNoticias;
 
@@ -43,7 +44,12 @@ public abstract class FeedParaNoticias {
         }
 
         @Override
-        protected Exception doInBackground(Integer... integers) {
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Integer... integers) {
             Exception exception = null;
 
             try{
@@ -56,10 +62,11 @@ public abstract class FeedParaNoticias {
                 feedParaNoticias.xmlParaNoticias(xpp);
 
             }catch (Exception e) {
-                exception = e;
+                Log.e("Exception",e.getMessage());
             }
-            return exception;
+            return null;
         }
+
 
     }
 

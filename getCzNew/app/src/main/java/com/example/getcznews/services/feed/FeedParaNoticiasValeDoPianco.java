@@ -1,24 +1,11 @@
 package com.example.getcznews.services.feed;
 
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
-import android.util.Log;
 
-import com.example.getcznews.MainActivity;
+import android.util.Log;
 import com.example.getcznews.dao.NoticiaDAO;
 import com.example.getcznews.domain.Fonte;
 import com.example.getcznews.domain.Noticia;
-
 import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.List;
-import java.util.UUID;
 
 public class FeedParaNoticiasValeDoPianco extends FeedParaNoticias {
 
@@ -41,44 +28,69 @@ public class FeedParaNoticiasValeDoPianco extends FeedParaNoticias {
             int eventType = xpp.getEventType();
 
             while (eventType != XmlPullParser.END_DOCUMENT) {
-                noticia = null;
                 if (eventType == XmlPullParser.START_TAG) {
 
-                    noticia = new Noticia(
-                            "Título",
-                            "Texto",
-                            "https://maladeaventuras.com/wp-content/uploads/2018/12/mockup-celular-e1544448308875-750x400.jpg",
-                            fonte);
 
-                    if (xpp.getName().equalsIgnoreCase("item")) {
+                    if (xpp.getName().equalsIgnoreCase(Tag.ITEM.value())) {
+                        noticia = new Noticia();
                         insiderItem = true;
-                    } else if (xpp.getName().equalsIgnoreCase("title")) {
+                    } else if (xpp.getName().equalsIgnoreCase(Tag.TITULO.value())) {
                         if (insiderItem) {
                             noticia.setTitulo(xpp.nextText());
                         }
-                    } else if (xpp.getName().equalsIgnoreCase("link")) {
+                    } else if (xpp.getName().equalsIgnoreCase(Tag.LINK.value())) {
+                        if(insiderItem){
+                            fonte.setSite(xpp.nextText());
+                            noticia.setFonte(fonte);
+                        }
+                    } else if(xpp.getName().equalsIgnoreCase(Tag.GUID.value())){
+                        if(insiderItem){
+                            xpp.nextText();
+                        }
 
-
-                        fonte.setSite(xpp.nextText());
-                        noticia.setFonte(fonte);
-                    } else if (xpp.getName().equalsIgnoreCase("description")) {
-                        noticia.setTexto(xpp.nextText());
+                    } else if (xpp.getName().equalsIgnoreCase(Tag.DESCRICAO.value())) {
+                        if(insiderItem){
+                            noticia.setTexto(xpp.nextText());
+                        }
+                    }else if(xpp.getName().equalsIgnoreCase(Tag.DATA.value())){
+                        if(insiderItem){
+                            xpp.nextText();
+                        }
                     }
-                } else if (eventType == XmlPullParser.END_TAG && xpp.getName().equalsIgnoreCase("item")) {
+                } else if (eventType == XmlPullParser.END_TAG && xpp.getName().equalsIgnoreCase(Tag.ITEM.value())) {
                     insiderItem = false;
+                    if (noticia != null) {
+                        Log.e("Notícia",noticia.toString());
+                        getNoticias().add(noticia);
+                    }
                 }
-                if (noticia != null) {
-                    Log.e("Notícia",noticia.toString());
-                    getNoticias().add(noticia);
-                }
+
 
                 eventType = xpp.next();
-//                noticia = new Noticia();
-//                fonte = new Fonte();
             }
         }catch (Exception e) {
         }
 
     }
+    private enum Tag {
+        ITEM("item"),
+        TITULO("title"),
+        LINK("link"),
+        GUID("guid"),
+        DESCRICAO("description"),
+        DATA("pubDate");
 
+        private final String value;
+
+        Tag(String value){
+            this.value=value;
+        }
+
+        public String value(){
+            return this.value;
+        }
+    }
 }
+
+
+
