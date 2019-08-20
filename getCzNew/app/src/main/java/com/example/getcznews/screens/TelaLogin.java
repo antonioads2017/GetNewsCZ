@@ -73,7 +73,7 @@ public class TelaLogin extends TelaModeloInativo {
         Button btLogar = new Button(llBotoes.getContext());
         btLogar.setText("Logar");
         llBotoes.addView(btLogar);
-
+        btLogar.setTextColor(Color.WHITE);
         btLogar.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -88,7 +88,7 @@ public class TelaLogin extends TelaModeloInativo {
         Button btCadastro = new Button(llBotoes.getContext());
         btCadastro.setText("Cadastrar");
         llBotoes.addView(btCadastro);
-        btLogar.setBackgroundColor(Color.parseColor("#67ebad"));
+        btLogar.setBackgroundColor(Color.parseColor("#407949"));
     btLogar.setGravity(Gravity.CENTER_VERTICAL);
         btCadastro.setOnClickListener(
                 new View.OnClickListener() {
@@ -99,7 +99,8 @@ public class TelaLogin extends TelaModeloInativo {
                 }
         );
 
-        btCadastro.setBackgroundColor(Color.parseColor("#67ebad"));
+        btCadastro.setBackgroundColor(Color.parseColor("#5eb668"));
+        btCadastro.setTextColor(Color.WHITE);
         btCadastro.setGravity(Gravity.CENTER_VERTICAL);
     }
 
