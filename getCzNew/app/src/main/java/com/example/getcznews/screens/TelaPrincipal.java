@@ -8,20 +8,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.getcznews.adapter.AdapterNoticiaPersonalizado;
 import com.example.getcznews.domain.Noticia;
 import com.example.getcznews.services.NoticiaService;
 import com.example.getcznews.services.TimeView;
-import com.example.getcznews.services.TimeWeb;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import static android.widget.Toast.LENGTH_SHORT;
 
 /************************************************************
  * Está é a tela principal do aplicativo.
