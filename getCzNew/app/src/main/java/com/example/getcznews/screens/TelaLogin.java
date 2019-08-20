@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.text.method.PasswordTransformationMethod;
 import android.view.Gravity;
 import android.view.View;
@@ -35,7 +36,7 @@ public class TelaLogin extends TelaModeloInativo {
 
 
 
-
+    public ImageView logo;
     private TextEdit teLogin;
     private TextEdit teSenha;
 
@@ -107,11 +108,16 @@ public class TelaLogin extends TelaModeloInativo {
      ***********************************************/
     private void criarTitulo() {
         //TITULO
-        TextView tvTitulo = new TextView(getRoot().getContext());
-        tvTitulo.setText("GetNews");
-        tvTitulo.setTextSize(40);
-        tvTitulo.setGravity(Gravity.CENTER_HORIZONTAL);
-        getRoot().addView(tvTitulo);
+//        TextView tvTitulo = new TextView(getRoot().getContext());
+//        tvTitulo.setText("GetNews");
+//
+//        tvTitulo.setTextSize(40);
+       logo = new ImageView(this);
+       logo.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.logoteste));
+
+//        logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.logoteste));
+//
+        getRoot().addView(logo);
     }
 
 
