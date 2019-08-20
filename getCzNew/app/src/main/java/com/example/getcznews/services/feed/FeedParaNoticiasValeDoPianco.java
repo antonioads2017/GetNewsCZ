@@ -26,14 +26,14 @@ public class FeedParaNoticiasValeDoPianco extends FeedParaNoticias {
         new ProcessInBackground().execute();
     }
 
-    public class ProcessInBackground extends AsyncTask<Integer,Void,String> {
+    public class ProcessInBackground extends AsyncTask<Integer,Void,Exception> {
 
 
         Exception exception = null;
 
 
         @Override
-        protected String doInBackground(Integer... integers) {
+        protected Exception doInBackground(Integer... integers) {
 
             try{
                 URL url = new URL(getUrlFeed());
@@ -60,7 +60,6 @@ public class FeedParaNoticiasValeDoPianco extends FeedParaNoticias {
                         }else if(xpp.getName().equalsIgnoreCase("link")){
 
                             fonte.setFeed("Vale do Piancó Noticias");
-                            fonte.setFeed("");
                             fonte.setSite(xpp.nextText());
                             noticia.setFonte(fonte);
                         }else if(xpp.getName().equalsIgnoreCase("description")){
@@ -82,7 +81,7 @@ public class FeedParaNoticiasValeDoPianco extends FeedParaNoticias {
             }catch (IOException ex){
                 exception=ex;
             }
-            return null;
+            return exception;
         }
 
     }
