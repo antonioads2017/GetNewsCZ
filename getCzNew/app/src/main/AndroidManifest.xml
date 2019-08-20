@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.getcznews">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,22 +12,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Holo.Light">
+
+        <service android:name=".services.RssService"/>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".screens.TelaPadrao"/>
-        <activity android:name=".screens.TelaModeloAtivo"/>
-        <activity android:name=".screens.TelaModeloInativo"/>
+        <activity android:name=".screens.TelaPadrao" />
+        <activity android:name=".screens.TelaModeloAtivo" />
+        <activity android:name=".screens.TelaModeloInativo" />
         <activity android:name=".screens.TelaLogin" />
-        <activity android:name=".screens.TelaPrincipal"/>
-        <activity android:name=".screens.TelaCadastro"/>
-        <activity android:name=".screens.TelaVerNoticia"/>
-        <activity android:name=".screens.TelaEditarPerfil"/>
-
+        <activity android:name=".screens.TelaPrincipal" />
+        <activity android:name=".screens.TelaCadastro" />
+        <activity android:name=".screens.TelaVerNoticia" />
+        <activity android:name=".screens.TelaEditarPerfil" />
+        <service android:name=".services.RssService"/>
     </application>
-
 
 </manifest>
