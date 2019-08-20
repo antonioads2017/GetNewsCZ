@@ -134,8 +134,8 @@ public class NoticiaView extends LinearLayout {
         Picasso.get()
                 .load(noticia.getUrlImage())
                 .centerCrop()
+                .error(R.drawable.semimagem)
                 .resize(LARGURA_IMAGEM,ALTURA_IMAGEM)
-                .error(R.drawable.ic_launcher_foreground)
                 .into(imageView);
 
         this.addView(imageView);

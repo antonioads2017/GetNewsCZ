@@ -1,26 +1,26 @@
 package com.example.getcznews.services.feed;
 
 
+import android.content.pm.LabeledIntent;
 import android.util.Log;
 import com.example.getcznews.dao.NoticiaDAO;
 import com.example.getcznews.domain.Fonte;
 import com.example.getcznews.domain.Noticia;
 import org.xmlpull.v1.XmlPullParser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FeedParaNoticiasValeDoPianco extends FeedParaNoticias {
 
-    public FeedParaNoticiasValeDoPianco(NoticiaDAO noticiaDAO, String urlFeed) {
-        super(noticiaDAO, urlFeed);
+    public FeedParaNoticiasValeDoPianco(NoticiaDAO noticiaDAO, Fonte fonte) {
+        super(noticiaDAO, fonte);
     }
 
     @Override
-    protected void xmlParaNoticias(XmlPullParser xpp) {
+    protected List<Noticia> xmlParaNoticias(XmlPullParser xpp) {
+        List<Noticia> noticias = new ArrayList<>();
         try {
-
-            Fonte fonte = new Fonte();
-            fonte.setId(1);
-            fonte.setFeed("Vale do Piancó Noticias");
-
             Noticia noticia = null;
 
             boolean insiderItem = false;
@@ -33,6 +33,7 @@ public class FeedParaNoticiasValeDoPianco extends FeedParaNoticias {
 
                     if (xpp.getName().equalsIgnoreCase(Tag.ITEM.value())) {
                         noticia = new Noticia();
+                        noticia.setFonte(fonte);
                         insiderItem = true;
                     } else if (xpp.getName().equalsIgnoreCase(Tag.TITULO.value())) {
                         if (insiderItem) {
@@ -40,8 +41,7 @@ public class FeedParaNoticiasValeDoPianco extends FeedParaNoticias {
                         }
                     } else if (xpp.getName().equalsIgnoreCase(Tag.LINK.value())) {
                         if(insiderItem){
-                            fonte.setSite(xpp.nextText());
-                            noticia.setFonte(fonte);
+                            noticia.setUrlImage(xpp.nextText());
                         }
                     } else if(xpp.getName().equalsIgnoreCase(Tag.GUID.value())){
                         if(insiderItem){
@@ -60,8 +60,8 @@ public class FeedParaNoticiasValeDoPianco extends FeedParaNoticias {
                 } else if (eventType == XmlPullParser.END_TAG && xpp.getName().equalsIgnoreCase(Tag.ITEM.value())) {
                     insiderItem = false;
                     if (noticia != null) {
+                        noticias.add(noticia);
                         Log.e("Notícia",noticia.toString());
-                        getNoticias().add(noticia);
                     }
                 }
 
@@ -71,7 +71,12 @@ public class FeedParaNoticiasValeDoPianco extends FeedParaNoticias {
         }catch (Exception e) {
         }
 
+        return noticias;
+
     }
+
+
+
     private enum Tag {
         ITEM("item"),
         TITULO("title"),

@@ -3,6 +3,8 @@ package com.example.getcznews.services;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.getcznews.dao.FonteDAO;
+import com.example.getcznews.dao.FonteDAOImpl;
 import com.example.getcznews.dao.NoticiaDAO;
 import com.example.getcznews.dao.NoticiaDAOImpl;
 import com.example.getcznews.services.feed.FeedParaNoticiasValeDoPianco;
@@ -24,7 +26,7 @@ import java.util.TimerTask;
  *****************************************/
 public class TimeWeb extends TimerTask {
 
-    private static final Long TEMPO = 1000L;
+    private static final Long TEMPO = 10000L;
 
     //Este atributo evita um solicitação ante do encerramento da anterior
     private boolean ocupado;
@@ -71,8 +73,9 @@ public class TimeWeb extends TimerTask {
      *******************************************/
     private static void atualizarNoticias(Context context){
         NoticiaDAO noticiaDAO = new NoticiaDAOImpl(context);
-        new FeedParaNoticiasValeDoPianco(noticiaDAO,"http://www.valedopianconoticias.com.br/noticias/index.rss");
-        TimeView.run();
+        FonteDAO fonteDAO = new FonteDAOImpl(context);
+        new FeedParaNoticiasValeDoPianco(noticiaDAO,fonteDAO.buscar(1));
+        //TimeView.run();
 
     }
 }

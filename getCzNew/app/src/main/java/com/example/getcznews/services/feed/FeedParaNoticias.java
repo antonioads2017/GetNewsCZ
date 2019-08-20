@@ -4,7 +4,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.getcznews.dao.NoticiaDAO;
+import com.example.getcznews.domain.Fonte;
 import com.example.getcznews.domain.Noticia;
+import com.example.getcznews.services.TimeView;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -16,14 +18,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class FeedParaNoticias {
-    private List<Noticia> noticias;
+    protected Fonte fonte;
+    protected NoticiaDAO noticiaDAO;
 
 
-    protected  abstract void xmlParaNoticias(XmlPullParser xpp);
+    protected  abstract List<Noticia> xmlParaNoticias(XmlPullParser xpp);
 
 
     public class ProcessInBackground extends AsyncTask<Integer,Void,String> {
-        private String urlFeed;
+
         private FeedParaNoticias feedParaNoticias;
 
 
@@ -38,9 +41,9 @@ public abstract class FeedParaNoticias {
             }
         }
 
-        public ProcessInBackground(FeedParaNoticias feedParaNoticias, String urlFeed) {
+        public ProcessInBackground(FeedParaNoticias feedParaNoticias) {
             this.feedParaNoticias = feedParaNoticias;
-            this.urlFeed = urlFeed;
+//            this.urlFeed = urlFeed;
         }
 
         @Override
@@ -53,13 +56,15 @@ public abstract class FeedParaNoticias {
             Exception exception = null;
 
             try{
-                URL url = new URL(urlFeed);
+                URL url = new URL(fonte.getFeed());
                 XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
                 factory.setNamespaceAware(false);
                 XmlPullParser xpp = factory.newPullParser();
                 xpp.setInput(getInputStream(url),"UTF_8");
 
-                feedParaNoticias.xmlParaNoticias(xpp);
+                persistirNoticias(
+                        feedParaNoticias
+                                .xmlParaNoticias(xpp));
 
             }catch (Exception e) {
                 Log.e("Exception",e.getMessage());
@@ -72,26 +77,25 @@ public abstract class FeedParaNoticias {
 
 
 
-    public FeedParaNoticias(NoticiaDAO noticiaDAO, String urlFeed) {
-        noticias = new ArrayList<>();
+    public FeedParaNoticias(NoticiaDAO noticiaDAO, Fonte fonte) {
+        this.fonte = fonte;
+        this.noticiaDAO = noticiaDAO;
 
         //Chama o método abstract para ler notícias do site
-        new ProcessInBackground(this,urlFeed).execute();
+        new ProcessInBackground(this).execute();
 
-        //noticiaDAO.limpar();
+
+    }
+
+    protected void persistirNoticias(List<Noticia> noticias){
+
         for (Noticia noticia: noticias) {
             noticiaDAO.salvar(noticia);
         }
 
-    }
 
+        TimeView.run();
 
-    public List<Noticia> getNoticias() {
-        return noticias;
-    }
-
-    public void setNoticias(List<Noticia> noticias) {
-        this.noticias = noticias;
     }
 
 }
