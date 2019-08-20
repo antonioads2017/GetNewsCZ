@@ -61,6 +61,9 @@ public class TelaEditarPerfil extends  TelaModeloAtivo {
         });
 
         llBotoes.addView(btCadastrar);
+
+        btCadastrar.setBackgroundColor(Color.parseColor("#5eb668"));
+        btCadastrar.setTextColor(Color.WHITE);
     }
 
     /**************************************
