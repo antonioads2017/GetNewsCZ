@@ -9,6 +9,6 @@
 * Camila Ferreira de Carvalho
 
 #### *Sites Usados:*
-* [Diário do Sertão](https://diariodosertao.com.br)
-* [Coisas de Cajazeiras](https://www.coisasdecajazeiras.com.br/)
-* [Jornal da Paraíba](http://www.jornaldaparaiba.com.br/)
+* [Vale do Pianco Noticias](http://www.valedopianconoticias.com.br)
+* [Paraíba Total](http://www.paraibatotal.com.br)
+* [Senso Critico PB](http://www.sensocriticopb.com.br)
