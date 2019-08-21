@@ -32,7 +32,6 @@ public class FeedParaNoticiasParaibaTotal extends FeedParaNoticias {
 
                     if (xpp.getName().equalsIgnoreCase(Tag.ITEM.value())) {
                         noticia = new Noticia();
-                        noticia.setFonte(fonte);
                         noticia.setUrlImage("http://www.paraibatotal.com.br/static/imagens/principal/paraibatotal-logo.jpg");
                         insiderItem = true;
                     } else if (xpp.getName().equalsIgnoreCase(Tag.TITULO.value())) {
@@ -45,7 +44,8 @@ public class FeedParaNoticiasParaibaTotal extends FeedParaNoticias {
                         }
                     }else if (xpp.getName().equalsIgnoreCase(Tag.LINK.value())) {
                         if(insiderItem){
-                            noticia.setUrlImage(xpp.nextText());
+                            fonte.setSite(xpp.nextText());
+                            noticia.setFonte(fonte);
                         }
                     } else if(xpp.getName().equalsIgnoreCase(Tag.GUID.value())){
                         if(insiderItem){
