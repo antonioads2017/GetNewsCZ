@@ -7,6 +7,7 @@ import com.example.getcznews.dao.FonteDAO;
 import com.example.getcznews.dao.FonteDAOImpl;
 import com.example.getcznews.dao.NoticiaDAO;
 import com.example.getcznews.dao.NoticiaDAOImpl;
+import com.example.getcznews.services.feed.FeedParaNoticiasParaibaTotal;
 import com.example.getcznews.services.feed.FeedParaNoticiasValeDoPianco;
 
 import java.util.Timer;
@@ -26,7 +27,7 @@ import java.util.TimerTask;
  *****************************************/
 public class TimeWeb extends TimerTask {
 
-    private static final Long TEMPO = 10000L;
+    private static final Long TEMPO = 30000L;
 
     //Este atributo evita um solicitação ante do encerramento da anterior
     private boolean ocupado;
@@ -75,6 +76,7 @@ public class TimeWeb extends TimerTask {
         NoticiaDAO noticiaDAO = new NoticiaDAOImpl(context);
         FonteDAO fonteDAO = new FonteDAOImpl(context);
         new FeedParaNoticiasValeDoPianco(noticiaDAO,fonteDAO.buscar(1));
+        new FeedParaNoticiasParaibaTotal(noticiaDAO,fonteDAO.buscar(2));
         //TimeView.run();
 
     }

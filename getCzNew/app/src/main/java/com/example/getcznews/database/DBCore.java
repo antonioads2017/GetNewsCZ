@@ -80,7 +80,7 @@ public class DBCore extends SQLiteOpenHelper {
         String[] scriptTabela = new String[]{
                 "INSERT INTO usuario(nome, login, senha) VALUES ('Usuário Default','eu','123');",
                 "INSERT INTO fonte(_id, nome,site,feed) VALUES (1, 'Vale do Piancó Notícias', 'http://www.valedopianconoticias.com.br', 'http://www.valedopianconoticias.com.br/noticias/index.rss');",
-                "INSERT INTO fonte(_id, nome,site,feed) VALUES (2, 'Coisas de Cajazeiras', 'https://www.diariodosertao.com.br', 'https://www.coisasdecajazeiras.com.br/feed/');",
+                "INSERT INTO fonte(_id, nome,site,feed) VALUES (2, 'Paraíba Total', 'http://www.paraibatotal.com.br', 'http://www.paraibatotal.com.br/rss-feed');",
                 "INSERT INTO fonte(_id, nome,site,feed) VALUES (3, 'Jornal da Paraíba', 'https://www.diariodosertao.com.br', 'http://www.jornaldaparaiba.com.br/feed/');",
                 "INSERT INTO noticia(fonte_id,titulo,texto,urlimage)" +
                         "VALUES (1,'Titulo da notícia 1','Texto da notícia 1','http://s2.glbimg.com/SdxxinMsy8zFCv2Oa0d3-jxcnbo=/0x0:2048x1365/695x463/s.glbimg.com/po/tt2/f/original/2016/10/26/img_0126_1.jpg');",

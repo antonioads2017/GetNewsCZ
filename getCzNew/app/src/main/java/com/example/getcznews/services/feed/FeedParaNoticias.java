@@ -14,7 +14,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class FeedParaNoticias {
@@ -96,6 +95,24 @@ public abstract class FeedParaNoticias {
 
         TimeView.run();
 
+    }
+    protected enum Tag {
+        ITEM("item"),
+        TITULO("title"),
+        LINK("link"),
+        GUID("guid"),
+        DESCRICAO("description"),
+        DATA("pubDate");
+
+        private final String value;
+
+        Tag(String value){
+            this.value=value;
+        }
+
+        public String value(){
+            return this.value;
+        }
     }
 
 }
