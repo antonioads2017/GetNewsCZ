@@ -41,8 +41,10 @@ public class FeedParaNoticiasValeDoPianco extends FeedParaNoticias {
                         }
                     } else if (xpp.getName().equalsIgnoreCase(Tag.LINK.value())) {
                         if(insiderItem){
-                            noticia.setUrlImage(xpp.nextText());
+//                            noticia.setUrlImage(xpp.nextText());
+                            xpp.nextText();
                         }
+
                     } else if(xpp.getName().equalsIgnoreCase(Tag.GUID.value())){
                         if(insiderItem){
                             xpp.nextText();
