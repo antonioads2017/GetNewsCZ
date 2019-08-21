@@ -3,7 +3,11 @@ package com.example.getcznews.services.feed;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.getcznews.R;
 import com.example.getcznews.domain.Noticia;
+import com.example.getcznews.screens.TelaPrincipal;
+import com.example.getcznews.services.NotificationManager;
+import com.example.getcznews.services.TimeView;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -16,6 +20,7 @@ import java.util.List;
 public class ProcessInBackground extends AsyncTask<Integer,Void,String> {
 
     private FeedParaNoticias feedParaNoticias;
+    private NotificationManager nm;
 
 
     public InputStream getInputStream(URL url) {
@@ -28,6 +33,7 @@ public class ProcessInBackground extends AsyncTask<Integer,Void,String> {
 
     public ProcessInBackground(FeedParaNoticias feedParaNoticias) {
         this.feedParaNoticias = feedParaNoticias;
+        this.nm=new NotificationManager(TimeView.getPrincipal());
     }
 
     @Override
@@ -49,6 +55,8 @@ public class ProcessInBackground extends AsyncTask<Integer,Void,String> {
             feedParaNoticias.persistirNoticias(noticias);
 
         }catch (Exception e) {
+                nm.sendNotification(R.drawable.small,"GetNews CZ","Noticias não atualizadas, verifique a rede", TelaPrincipal.class);
+
             Log.e("Exception",e.getMessage());
         }
         return null;

@@ -3,7 +3,9 @@ package com.example.getcznews.services.feed;
 import com.example.getcznews.dao.NoticiaDAO;
 import com.example.getcznews.domain.Fonte;
 import com.example.getcznews.domain.Noticia;
+import com.example.getcznews.services.NotificationManager;
 import com.example.getcznews.services.TimeView;
+import com.example.getcznews.services.TimeWeb;
 
 import org.xmlpull.v1.XmlPullParser;
 
@@ -13,6 +15,7 @@ import java.util.List;
 public abstract class FeedParaNoticias {
     protected Fonte fonte;
     protected NoticiaDAO noticiaDAO;
+
 
 
     protected  abstract List<Noticia> xmlParaNoticias(XmlPullParser xpp);
