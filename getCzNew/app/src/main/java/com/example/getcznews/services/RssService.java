@@ -31,7 +31,7 @@ public class RssService extends Service {
         Log.d("RssService","INICIANDO RSS SERVICE");
 
         timeWeb = new TimeWeb();
-        TimeWeb.init(600000);
+        TimeWeb.init(300000);
 
 
         Log.e("Services","onStartCommand");
