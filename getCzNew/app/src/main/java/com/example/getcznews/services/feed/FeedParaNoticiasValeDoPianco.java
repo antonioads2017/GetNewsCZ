@@ -33,7 +33,7 @@ public class FeedParaNoticiasValeDoPianco extends FeedParaNoticias {
 
                     if (xpp.getName().equalsIgnoreCase(Tag.ITEM.value())) {
                         noticia = new Noticia();
-                        noticia.setFonte(fonte);
+                        noticia.setUrlImage("http://www.valedopianconoticias.com.br/img/logo.png");
                         insiderItem = true;
                     } else if (xpp.getName().equalsIgnoreCase(Tag.TITULO.value())) {
                         if (insiderItem) {
@@ -41,8 +41,8 @@ public class FeedParaNoticiasValeDoPianco extends FeedParaNoticias {
                         }
                     } else if (xpp.getName().equalsIgnoreCase(Tag.LINK.value())) {
                         if(insiderItem){
-//                            noticia.setUrlImage(xpp.nextText());
-                            xpp.nextText();
+                            fonte.setSite(xpp.nextText());
+                            noticia.setFonte(fonte);
                         }
 
                     } else if(xpp.getName().equalsIgnoreCase(Tag.GUID.value())){
