@@ -8,6 +8,7 @@ import com.example.getcznews.dao.FonteDAOImpl;
 import com.example.getcznews.dao.NoticiaDAO;
 import com.example.getcznews.dao.NoticiaDAOImpl;
 import com.example.getcznews.services.feed.FeedParaNoticiasParaibaTotal;
+import com.example.getcznews.services.feed.FeedParaNoticiasSensoCriticoPb;
 import com.example.getcznews.services.feed.FeedParaNoticiasValeDoPianco;
 
 import java.util.Timer;
@@ -79,6 +80,7 @@ public class TimeWeb extends TimerTask {
         FonteDAO fonteDAO = new FonteDAOImpl(context);
         new FeedParaNoticiasValeDoPianco(noticiaDAO,fonteDAO.buscar(1));
         new FeedParaNoticiasParaibaTotal(noticiaDAO,fonteDAO.buscar(2));
+        new FeedParaNoticiasSensoCriticoPb(noticiaDAO,fonteDAO.buscar(3));
         //TimeView.run();
 
     }

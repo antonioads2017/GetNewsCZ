@@ -39,7 +39,10 @@ public abstract class FeedParaNoticias {
         LINK("link"),
         GUID("guid"),
         DESCRICAO("description"),
-        DATA("pubDate");
+        DATA("pubDate"),
+        IMAGEM("image"),
+        CATEGORIA("category"),
+        CONTEUDO("content:encoded");
 
         private final String value;
 
