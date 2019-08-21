@@ -76,13 +76,13 @@ public class TelaLogin extends TelaModeloInativo {
 
         //LAYOUT DOS BOTÕES
         llBotoes = new LinearLayout(getRoot().getContext());
+        llBotoes.setOrientation(LinearLayout.VERTICAL);
         llBotoes.setLayoutParams(
                 new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT
                 )
         );
-        llBotoes.setOrientation(LinearLayout.VERTICAL);
         getRoot().addView(llBotoes);
 
 
@@ -92,7 +92,6 @@ public class TelaLogin extends TelaModeloInativo {
         btLogar.setBackgroundColor(Color.parseColor("#5eb668"));
         btLogar.setTextColor(Color.WHITE);
         btLogar.setGravity(Gravity.CENTER_HORIZONTAL);
-        btLogar.setPadding(10,10,10,10);
         btLogar.setOnClickListener(
                 new View.OnClickListener() {
                     @Override

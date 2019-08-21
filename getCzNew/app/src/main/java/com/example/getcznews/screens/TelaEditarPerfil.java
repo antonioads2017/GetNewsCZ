@@ -17,39 +17,57 @@ import com.example.getcznews.domain.Usuario;
 
 public class TelaEditarPerfil extends  TelaModeloAtivo {
 
+    private TextEdit tvNome;
+    private TextEdit tvLogin;
+    private TextEdit tvSenha;
+
+
     public TelaEditarPerfil() {}
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        getRoot().setPadding(100,50,100,50);
+
         criarTitulo();
 
         //NOME
-        final TextEdit tvNome = new TextEdit(this,getRoot(),"Nome");
+        tvNome = new TextEdit(this,getRoot(),"Nome");
         tvNome.getEt().setText(usuarioService.getUsuarioLogado().getNome());
 
         //LOGIN
-        final TextEdit tvLogin = new TextEdit(this,getRoot(),"Login");
+        tvLogin = new TextEdit(this,getRoot(),"Login");
         tvLogin.getEt().setText(usuarioService.getUsuarioLogado().getLogin());
 
         //SENHA
-        final TextEdit tvSenha = new TextEdit(this,getRoot(),"Senha");
+        tvSenha = new TextEdit(this,getRoot(),"Senha");
         tvSenha.getEt().setTransformationMethod(new PasswordTransformationMethod());
         tvSenha.getEt().setText(usuarioService.getUsuarioLogado().getSenha());
 
+        criarBotoes();
+
+
+    }
+
+    private void criarBotoes() {
         //LAYOUT DOS BOTÕES
         LinearLayout llBotoes = new LinearLayout(getRoot().getContext());
+        llBotoes.setOrientation(LinearLayout.VERTICAL);
         llBotoes.setLayoutParams(
                 new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT
                 )
         );
         getRoot().addView(llBotoes);
+
         //BOTÃO PARA EDITAR O USUÁRIO
         Button btCadastrar = new Button(llBotoes.getContext());
         btCadastrar.setText("Editar");
+        btCadastrar.setBackgroundColor(Color.parseColor("#5eb668"));
+        btCadastrar.setTextColor(Color.WHITE);
+        btCadastrar.setGravity(Gravity.CENTER_HORIZONTAL);
         btCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,8 +80,6 @@ public class TelaEditarPerfil extends  TelaModeloAtivo {
 
         llBotoes.addView(btCadastrar);
 
-        btCadastrar.setBackgroundColor(Color.parseColor("#5eb668"));
-        btCadastrar.setTextColor(Color.WHITE);
     }
 
     /**************************************
