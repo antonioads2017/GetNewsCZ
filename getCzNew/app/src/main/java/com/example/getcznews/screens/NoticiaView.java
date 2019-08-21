@@ -131,12 +131,19 @@ public class NoticiaView extends LinearLayout {
 
         imageView = new ImageView(this.getContext());
 
-        Picasso.get()
-                .load(noticia.getUrlImage())
-                .centerCrop()
-                .error(R.drawable.semimagem)
-                .resize(LARGURA_IMAGEM,ALTURA_IMAGEM)
-                .into(imageView);
+        if (noticia.getUrlImage() == null)
+            Picasso.get()
+                    .load(R.drawable.semimagem)
+                    .centerCrop()
+                    .resize(LARGURA_IMAGEM,ALTURA_IMAGEM)
+                    .into(imageView);
+        else
+            Picasso.get()
+                    .load(noticia.getUrlImage())
+                    .centerCrop()
+                    .error(R.drawable.semimagem)
+                    .resize(LARGURA_IMAGEM,ALTURA_IMAGEM)
+                    .into(imageView);
 
         this.addView(imageView);
     }

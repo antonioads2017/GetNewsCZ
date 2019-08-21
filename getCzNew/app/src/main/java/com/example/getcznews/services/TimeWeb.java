@@ -26,7 +26,7 @@ import java.util.TimerTask;
  *****************************************/
 public class TimeWeb extends TimerTask {
 
-    private static final Long TEMPO = 10000L;
+    private static final Long TEMPO = 1000L;
 
     //Este atributo evita um solicitação ante do encerramento da anterior
     private boolean ocupado;
