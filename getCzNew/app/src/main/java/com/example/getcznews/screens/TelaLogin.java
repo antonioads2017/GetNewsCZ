@@ -36,7 +36,7 @@ public class TelaLogin extends TelaModeloInativo {
 
 
 
-    public ImageView logo;
+    private ImageView logo;
     private TextEdit teLogin;
     private TextEdit teSenha;
 
