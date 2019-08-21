@@ -32,7 +32,6 @@ public class FeedParaNoticiasSensoCriticoPb extends FeedParaNoticias {
 
                     if (xpp.getName().equalsIgnoreCase(Tag.ITEM.value())) {
                         noticia = new Noticia();
-                        noticia.setFonte(fonte);
                         insiderItem = true;
                     } else if (xpp.getName().equalsIgnoreCase(Tag.TITULO.value())) {
                         if (insiderItem) {
@@ -53,6 +52,7 @@ public class FeedParaNoticiasSensoCriticoPb extends FeedParaNoticias {
                     }else if (xpp.getName().equalsIgnoreCase(Tag.IMAGEM.value())) {
                         if(insiderItem){
                             noticia.setUrlImage(xpp.nextText());
+//                            Log.e("Imagem",noticia.getUrlImage());
                         }
                     }else if (xpp.getName().equalsIgnoreCase(Tag.CONTEUDO.value())) {
                         if(insiderItem){
@@ -65,14 +65,16 @@ public class FeedParaNoticiasSensoCriticoPb extends FeedParaNoticias {
                         }
                     }else if (xpp.getName().equalsIgnoreCase(Tag.LINK.value())) {
                         if(insiderItem){
-                            noticia.setUrlImage(xpp.nextText());
+                            fonte.setSite(xpp.nextText());
+                            noticia.setFonte(fonte);
                         }
                     }
                 } else if (eventType == XmlPullParser.END_TAG && xpp.getName().equalsIgnoreCase(Tag.ITEM.value())) {
                     insiderItem = false;
                     if (noticia != null) {
-                        noticias.add(noticia);
                         Log.e("Notícia",noticia.toString());
+                        noticias.add(noticia);
+
                     }
                 }
 
