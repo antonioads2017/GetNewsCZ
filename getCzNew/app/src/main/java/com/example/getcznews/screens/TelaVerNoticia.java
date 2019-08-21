@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Layout;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -90,15 +92,24 @@ public class TelaVerNoticia extends TelaModeloAtivo {
      * Método responsável pela criação da imagem da notícia
      ********************************************/
     private void criarImagem() {
-        ivFoto = new ImageView(getRoot().getContext());
 
-        Picasso.get()
-                .load(noticia.getUrlImage())
-                .centerCrop()
-                .resize(LARGURA_IMAGEM,ALTURA_IMAGEM)
-                .error(R.drawable.ic_launcher_foreground)
-                .into(ivFoto);
-        getRoot().addView(ivFoto);
+        if (noticia.getUrlImage() == null) {
+            TextView tvUrl = new TextView(getRoot().getContext());
+            tvUrl.setTextSize(10);
+            tvUrl.setGravity(Gravity.CENTER_HORIZONTAL);
+            getRoot().addView(tvUrl);
+            tvUrl.setText("Sem Foto.");
+        } else {
+            ivFoto = new ImageView(getRoot().getContext());
+            Picasso.get()
+                    .load(noticia.getUrlImage().trim())
+                    .centerCrop()
+                    .error(R.drawable.semimagem)
+                    .resize(LARGURA_IMAGEM, ALTURA_IMAGEM)
+                    .into(ivFoto);
+            getRoot().addView(ivFoto);
+        }
+
     }
 
     }

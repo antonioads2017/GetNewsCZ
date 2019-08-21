@@ -79,9 +79,9 @@ public class TimeWeb extends TimerTask {
         NoticiaDAO noticiaDAO = new NoticiaDAOImpl(context);
         FonteDAO fonteDAO = new FonteDAOImpl(context);
         noticiaDAO.limpar();
+        new FeedParaNoticiasSensoCriticoPb(noticiaDAO,fonteDAO.buscar(3));
         new FeedParaNoticiasValeDoPianco(noticiaDAO,fonteDAO.buscar(1));
         new FeedParaNoticiasParaibaTotal(noticiaDAO,fonteDAO.buscar(2));
-        new FeedParaNoticiasSensoCriticoPb(noticiaDAO,fonteDAO.buscar(3));
         TimeView.run();
 
     }

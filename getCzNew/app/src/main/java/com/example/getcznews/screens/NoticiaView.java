@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.text.Layout;
+import android.util.Log;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -131,20 +132,21 @@ public class NoticiaView extends LinearLayout {
 
         imageView = new ImageView(this.getContext());
 
-        if (noticia.getUrlImage() == null)
+        if (noticia.getUrlImage() == null) {
             Picasso.get()
                     .load(R.drawable.semimagem)
                     .centerCrop()
-                    .resize(LARGURA_IMAGEM,ALTURA_IMAGEM)
+                    .resize(LARGURA_IMAGEM, ALTURA_IMAGEM)
                     .into(imageView);
-        else
+        } else {
+            Log.e("Imagem",noticia.getUrlImage());
             Picasso.get()
-                    .load(noticia.getUrlImage())
+                    .load(noticia.getUrlImage().trim())
                     .centerCrop()
                     .error(R.drawable.semimagem)
-                    .resize(LARGURA_IMAGEM,ALTURA_IMAGEM)
+                    .resize(LARGURA_IMAGEM, ALTURA_IMAGEM)
                     .into(imageView);
-
+        }
         this.addView(imageView);
     }
 

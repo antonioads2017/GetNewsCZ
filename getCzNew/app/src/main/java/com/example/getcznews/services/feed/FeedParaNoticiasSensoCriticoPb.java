@@ -72,7 +72,7 @@ public class FeedParaNoticiasSensoCriticoPb extends FeedParaNoticias {
                 } else if (eventType == XmlPullParser.END_TAG && xpp.getName().equalsIgnoreCase(Tag.ITEM.value())) {
                     insiderItem = false;
                     if (noticia != null) {
-                        Log.e("Notícia",noticia.toString());
+//                        Log.e("Notícia",noticia.toString());
                         noticias.add(noticia);
 
                     }
