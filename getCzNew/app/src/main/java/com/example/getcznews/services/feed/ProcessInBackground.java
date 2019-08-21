@@ -17,12 +17,21 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 
+/**
+ * Classe que herda o AsyncTask para requisitar o xml em segundo plano
+ * @author Antonio Miguel
+ */
 public class ProcessInBackground extends AsyncTask<Integer,Void,String> {
 
     private FeedParaNoticias feedParaNoticias;
     private NotificationManager nm;
 
 
+    /**
+     * Metodo que requisita o xml pela Url.
+     * @param url Url do feed do site
+     * @return InputStream
+     */
     public InputStream getInputStream(URL url) {
         try{
             return url.openConnection().getInputStream();
@@ -41,6 +50,12 @@ public class ProcessInBackground extends AsyncTask<Integer,Void,String> {
         super.onPreExecute();
     }
 
+    /**
+     * Metodo principal da classe para tratar a conexao e
+     * converter na Lista de Noticias
+     * @param integers parametros do AsyncTask
+     * @return null
+     */
     @Override
     protected String doInBackground(Integer... integers) {
         try{

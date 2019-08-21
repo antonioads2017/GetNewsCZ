@@ -11,6 +11,11 @@ import org.xmlpull.v1.XmlPullParser;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe para tratar a requisicao do XML do Vale do Piancó Noticias
+ * @author Antonio Miguel
+ *
+ */
 public class FeedParaNoticiasValeDoPianco extends FeedParaNoticias {
 
     public FeedParaNoticiasValeDoPianco(NoticiaDAO noticiaDAO, Fonte fonte) {

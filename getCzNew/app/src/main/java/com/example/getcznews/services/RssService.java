@@ -5,6 +5,11 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+/**
+ * Classe de Serviço responsavel por atualizar as noticias
+ * mesmo com a aplicação fechada, ou seja, em segundo plano
+ * @author Antonio Miguel
+ */
 public class RssService extends Service {
 
     private TimeWeb timeWeb;
@@ -26,6 +31,10 @@ public class RssService extends Service {
         super.onCreate();
     }
 
+    /**
+     * Metodo para startar o servico com delay denifinido
+     * @param intent intenção de onde sera startado
+     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("RssService","INICIANDO RSS SERVICE");

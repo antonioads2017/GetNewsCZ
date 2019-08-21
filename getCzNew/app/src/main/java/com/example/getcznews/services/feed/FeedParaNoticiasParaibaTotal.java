@@ -11,6 +11,11 @@ import org.xmlpull.v1.XmlPullParser;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe para tratar a requisicao do XML do Paraiba Total
+ * @author Antonio Miguel
+ *
+ */
 public class FeedParaNoticiasParaibaTotal extends FeedParaNoticias {
 
     public FeedParaNoticiasParaibaTotal(NoticiaDAO noticiaDAO, Fonte fonte) {

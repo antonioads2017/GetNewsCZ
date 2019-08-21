@@ -12,6 +12,11 @@ import org.xmlpull.v1.XmlPullParser;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe para tratar a requisicao do XML do Senso Critico PB
+ * @author Antonio Miguel
+ *
+ */
 public class FeedParaNoticiasSensoCriticoPb extends FeedParaNoticias {
     public FeedParaNoticiasSensoCriticoPb(NoticiaDAO noticiaDAO, Fonte fonte) {
         super(noticiaDAO, fonte);

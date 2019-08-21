@@ -12,6 +12,10 @@ import android.support.v4.app.NotificationManagerCompat;
 
 import com.example.getcznews.R;
 
+/**
+ * Classe de Gerencia de Notificação do Android
+ * @author Antonio Miguel
+ */
 public class NotificationManager {
     private final Context ctx;
     private final String channelID = "Noticia";
@@ -20,6 +24,14 @@ public class NotificationManager {
         this.ctx = ctx;
     }
 
+    /**
+     * Classe responsavel por criar e lançar a notificação ao dispositivo,
+     * com vibração e efeito sonoro
+     * @param smallIcon icone pequeno da notificação
+     * @param title titulo da notificação
+     * @param content conteudo da notificação
+     * @param actClass classe do intent pendente
+     */
     public void sendNotification(int smallIcon, String title, String content, Class<?> actClass){
         // Create an explicit intent for an Activity in your app
         Intent intent = new Intent(ctx, actClass);
