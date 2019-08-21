@@ -40,6 +40,10 @@ public class TelaLogin extends TelaModeloInativo {
     private TextEdit teLogin;
     private TextEdit teSenha;
 
+    private LinearLayout llBotoes;
+    private Button btLogar;
+    private Button btCadastro;
+
 
     public TelaLogin() {}
 
@@ -47,7 +51,7 @@ public class TelaLogin extends TelaModeloInativo {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        getRoot().setPadding(100,50,100,50);
         //Criando os textos
         criarTitulo();
         criarTexto();
@@ -55,41 +59,58 @@ public class TelaLogin extends TelaModeloInativo {
         criarEditLogin();
         criarEditSenha();
 
+        //CriandoBotões
+        criarBotoes();
+    }
+
+    /***************************************
+     * Método resposável por criar o botão
+     **************************************/
+    private void criarBotoes() {
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        layoutParams.setMargins(30, 20, 30, 0);
 
 
         //LAYOUT DOS BOTÕES
-        LinearLayout llBotoes = new LinearLayout(getRoot().getContext());
+        llBotoes = new LinearLayout(getRoot().getContext());
         llBotoes.setLayoutParams(
                 new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT
                 )
         );
-        llBotoes.setGravity(Gravity.CENTER_HORIZONTAL);
+        llBotoes.setOrientation(LinearLayout.VERTICAL);
         getRoot().addView(llBotoes);
 
 
         //BOTÃO LOGAR
-        Button btLogar = new Button(llBotoes.getContext());
+        btLogar = new Button(llBotoes.getContext());
         btLogar.setText("Logar");
-        llBotoes.addView(btLogar);
+        btLogar.setBackgroundColor(Color.parseColor("#5eb668"));
         btLogar.setTextColor(Color.WHITE);
+        btLogar.setGravity(Gravity.CENTER_HORIZONTAL);
+        btLogar.setPadding(10,10,10,10);
         btLogar.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                       onLogar(teLogin.getValue(),teSenha.getValue());
+                        onLogar(teLogin.getValue(),teSenha.getValue());
                     }
                 }
         );
+        llBotoes.addView(btLogar, layoutParams);
 
 
         //BOTÃO CADASTRAR
-        Button btCadastro = new Button(llBotoes.getContext());
+        btCadastro = new Button(llBotoes.getContext());
         btCadastro.setText("Cadastrar");
-        llBotoes.addView(btCadastro);
-        btLogar.setBackgroundColor(Color.parseColor("#407949"));
-    btLogar.setGravity(Gravity.CENTER_VERTICAL);
+        btCadastro.setBackgroundColor(Color.parseColor("#5eb668"));
+        btCadastro.setTextColor(Color.WHITE);
+        btCadastro.setGravity(Gravity.CENTER_HORIZONTAL);
+        btCadastro.setPadding(10,10,10,10);
         btCadastro.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -98,26 +119,16 @@ public class TelaLogin extends TelaModeloInativo {
                     }
                 }
         );
+        llBotoes.addView(btCadastro, layoutParams);
 
-        btCadastro.setBackgroundColor(Color.parseColor("#5eb668"));
-        btCadastro.setTextColor(Color.WHITE);
-        btCadastro.setGravity(Gravity.CENTER_VERTICAL);
     }
 
     /***********************************************
      * Método responsável por criar o título da tela
      ***********************************************/
     private void criarTitulo() {
-        //TITULO
-//        TextView tvTitulo = new TextView(getRoot().getContext());
-//        tvTitulo.setText("GetNews");
-//
-//        tvTitulo.setTextSize(40);
        logo = new ImageView(this);
        logo.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.logoteste));
-
-//        logo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.logoteste));
-//
         getRoot().addView(logo);
     }
 

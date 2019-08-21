@@ -61,7 +61,7 @@ public class FeedParaNoticiasParaibaTotal extends FeedParaNoticias {
                     insiderItem = false;
                     if (noticia != null) {
                         noticias.add(noticia);
-                        Log.e("Notícia",noticia.toString());
+//                        Log.e("Notícia",noticia.toString());
                     }
                 }
 
