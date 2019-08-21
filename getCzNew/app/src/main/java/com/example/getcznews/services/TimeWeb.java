@@ -78,7 +78,7 @@ public class TimeWeb extends TimerTask {
     private static void atualizarNoticias(Context context){
         NoticiaDAO noticiaDAO = new NoticiaDAOImpl(context);
         FonteDAO fonteDAO = new FonteDAOImpl(context);
-        noticiaDAO.limpar();
+//        noticiaDAO.limpar();
         new FeedParaNoticiasSensoCriticoPb(noticiaDAO,fonteDAO.buscar(3));
         new FeedParaNoticiasValeDoPianco(noticiaDAO,fonteDAO.buscar(1));
         new FeedParaNoticiasParaibaTotal(noticiaDAO,fonteDAO.buscar(2));

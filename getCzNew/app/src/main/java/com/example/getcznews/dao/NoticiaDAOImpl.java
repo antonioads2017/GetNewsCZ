@@ -151,8 +151,12 @@ public class NoticiaDAOImpl implements NoticiaDAO {
     }
 
     @Override
-    public void limpar() {
-        abrir().delete("noticia",null,null);
+    public void limpar(long fonte_id) {
+        abrir().delete(
+                "noticia",
+
+                "fonte_id = ?",
+                new String[]{""+fonte_id});
         fechar();
     }
 }

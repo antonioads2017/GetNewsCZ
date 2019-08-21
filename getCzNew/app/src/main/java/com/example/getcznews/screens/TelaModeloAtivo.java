@@ -4,16 +4,20 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.opengl.EGLExt;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.getcznews.controler.Login;
+import com.example.getcznews.R;
 import com.example.getcznews.services.TimeView;
-import com.example.getcznews.services.UsuarioService;
 
 /***********************
  * TelaModeloAtivo
@@ -58,8 +62,12 @@ public abstract class TelaModeloAtivo extends TelaPadrao{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         ActionBar ab = getActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
+        ab.setSubtitle("Onde as notícias chegam primeiro.");
+        ab.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#5eb668")));
+        ab.setIcon(R.drawable.small);
     }
 
     /*********************************************

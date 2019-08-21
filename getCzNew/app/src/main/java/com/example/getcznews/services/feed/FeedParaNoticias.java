@@ -26,10 +26,13 @@ public abstract class FeedParaNoticias {
     }
 
     protected void persistirNoticias(List<Noticia> noticias){
-
+        if (noticias.size() == 0)
+            return;
+        noticiaDAO.limpar(fonte.getId());
         for (Noticia noticia: noticias) {
             noticiaDAO.salvar(noticia);
         }
+
         TimeView.run();
 
     }
