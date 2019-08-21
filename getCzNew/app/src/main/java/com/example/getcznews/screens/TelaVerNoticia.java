@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Layout;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -78,6 +79,7 @@ public class TelaVerNoticia extends TelaModeloAtivo {
         tvCorpo = new TextView(getRoot().getContext());
         tvCorpo.setText(noticia.getTexto());
         tvCorpo.setTextSize(12);
+        tvCorpo.setMovementMethod(new ScrollingMovementMethod());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             tvCorpo.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD);
         }

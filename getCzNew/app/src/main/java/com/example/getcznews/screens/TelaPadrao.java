@@ -117,8 +117,10 @@ public abstract class TelaPadrao  extends Activity {
          * como o valor de !logado == True
          * Será redirecionando para a tela de Login (que será intacinada nas classe especialistas)
          ****************************/
-        if (soLogado && !logado)
+        if (soLogado && !logado) {
             redirecionar(); //Método abstract
+            this.finish();
+        }
 
         /***************************
          * Caso soLogado == False
@@ -126,8 +128,10 @@ public abstract class TelaPadrao  extends Activity {
          * como o valor de logado == True
          * Será redirecionando para a tela Principal (que será instanciada nas classe especialistas)
          ****************************/
-        if(!soLogado && logado)
+        if(!soLogado && logado) {
             redirecionar(); //Método abstract
+            this.finish();
+        }
     }
 
     /**********************************************
